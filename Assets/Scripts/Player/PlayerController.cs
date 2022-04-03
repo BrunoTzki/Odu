@@ -16,6 +16,12 @@ public class PlayerController : MonoBehaviour
         this.rigidbody = GetComponent<Rigidbody>();
     }
 
+    void Update()
+    {
+        Vector2 mouse = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+        this.transform.LookAt(mouse);
+    }
+
     // Update is called once per frame
     void FixedUpdate()
     {

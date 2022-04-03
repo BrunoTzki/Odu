@@ -2,7 +2,7 @@
     "name": "PlayerInputActions",
     "maps": [
         {
-            "name": "OnGround",
+            "name": "Movement",
             "id": "c72575c5-1db7-4498-942f-7c7a58c33668",
             "actions": [
                 {
@@ -10,6 +10,15 @@
                     "type": "Value",
                     "id": "50247dbd-b51e-4eb2-8d80-f5f243d84368",
                     "expectedControlType": "Vector3",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "LookAt",
+                    "type": "Value",
+                    "id": "3affff77-f11e-49ec-8b2d-7cbdbe02c08d",
+                    "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
@@ -92,6 +101,17 @@
                     "action": "Movement",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "23f1e0ba-98b5-4943-b20a-fc06a9e2b83a",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LookAt",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }
