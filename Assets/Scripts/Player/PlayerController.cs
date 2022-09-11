@@ -5,10 +5,10 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private int speed = 350;
+    [SerializeField] private float speed = 350.0f;
 
-    private Rigidbody rigidbody;
-    private Vector3 direction;
+    protected Rigidbody rigidbody;
+    protected Vector3 playerMovement;
 
     // Start is called before the first frame update
     void Start()
@@ -16,20 +16,18 @@ public class PlayerController : MonoBehaviour
         this.rigidbody = GetComponent<Rigidbody>();
     }
 
-    void Update()
+    public void FixedUpdate()
     {
-        Vector2 mouse = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-        this.transform.LookAt(mouse);
-    }
-
-    // Update is called once per frame
-    void FixedUpdate()
-    {
-        this.rigidbody.velocity = this.direction * this.speed * Time.deltaTime;
+        if (this.playerMovement != Vector3.zero)
+        {
+            this.rigidbody.velocity = playerMovement * this.speed * Time.deltaTime;
+            this.transform.forward = this.rigidbody.velocity;
+        }
     }
 
     public void OnMovement(InputAction.CallbackContext context)
     {
-        this.direction = context.ReadValue<Vector3>();
+        Vector2 playerInput = context.ReadValue<Vector2>();
+        this.playerMovement = new Vector3(playerInput.x, 0f, playerInput.y);
     }
 }
