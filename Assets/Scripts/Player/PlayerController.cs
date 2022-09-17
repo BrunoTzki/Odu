@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
 
     protected Rigidbody rigidbody;
     protected Vector3 playerInput;
+    protected Matrix4x4 deformacaoPlano = Matrix4x4.Rotate(Quaternion.Euler(0, 45, 0));
 
     // Start is called before the first frame update
     void Start()
@@ -24,7 +25,8 @@ public class PlayerController : MonoBehaviour
 
     private void HandleMove()
     {
-        Vector3 playerMovement = this.playerInput * this.speed * Time.deltaTime;
+        Vector3 skewedInput = this.deformacaoPlano.MultiplyPoint3x4(this.playerInput);
+        Vector3 playerMovement = skewedInput * this.speed * Time.deltaTime;
 
         this.rigidbody.velocity = new Vector3(playerMovement.x, this.rigidbody.velocity.y, playerMovement.z);
 
