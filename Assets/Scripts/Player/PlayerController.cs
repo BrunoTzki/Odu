@@ -5,10 +5,10 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private float speed = 350.0f;
+    [SerializeField] private float speed = 20.0f;
 
     protected Rigidbody rigidbody;
-    protected Vector3 playerMovement;
+    protected Vector2 playerInput;
 
     // Start is called before the first frame update
     void Start()
@@ -18,16 +18,23 @@ public class PlayerController : MonoBehaviour
 
     public void FixedUpdate()
     {
-        if (this.playerMovement != Vector3.zero)
+        HandleMove();
+    }
+
+    private void HandleMove()
+    {
+        Vector2 playerMovement = this.playerInput * this.speed * Time.deltaTime;
+
+        this.rigidbody.velocity = new Vector3(playerMovement.x, this.rigidbody.velocity.y, playerMovement.y);
+
+        if (playerMovement != Vector2.zero)
         {
-            this.rigidbody.velocity = playerMovement * this.speed * Time.deltaTime;
-            this.transform.forward = this.rigidbody.velocity;
+            this.transform.LookAt(transform.position + new Vector3(this.rigidbody.velocity.x, 0f, this.rigidbody.velocity.z));
         }
     }
 
     public void OnMovement(InputAction.CallbackContext context)
     {
-        Vector2 playerInput = context.ReadValue<Vector2>();
-        this.playerMovement = new Vector3(playerInput.x, 0f, playerInput.y);
+        this.playerInput = context.ReadValue<Vector2>();
     }
 }
