@@ -5,10 +5,11 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private float speed = 20.0f;
+    [SerializeField] private float speed = 400.0f;
+    [SerializeField] private float turnSpeed = 1_000.0f;
 
     protected Rigidbody rigidbody;
-    protected Vector2 playerInput;
+    protected Vector3 playerInput;
 
     // Start is called before the first frame update
     void Start()
@@ -23,18 +24,22 @@ public class PlayerController : MonoBehaviour
 
     private void HandleMove()
     {
-        Vector2 playerMovement = this.playerInput * this.speed * Time.deltaTime;
+        Vector3 playerMovement = this.playerInput * this.speed * Time.deltaTime;
 
-        this.rigidbody.velocity = new Vector3(playerMovement.x, this.rigidbody.velocity.y, playerMovement.y);
+        this.rigidbody.velocity = new Vector3(playerMovement.x, this.rigidbody.velocity.y, playerMovement.z);
 
-        if (playerMovement != Vector2.zero)
+        if (playerMovement != Vector3.zero)
         {
-            this.transform.LookAt(transform.position + new Vector3(this.rigidbody.velocity.x, 0f, this.rigidbody.velocity.z));
+            Vector3 direction = (transform.position + playerMovement) - transform.position;
+            Quaternion rotation = Quaternion.LookRotation(direction, Vector3.up);
+
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, this.turnSpeed * Time.deltaTime);
         }
     }
 
     public void OnMovement(InputAction.CallbackContext context)
     {
-        this.playerInput = context.ReadValue<Vector2>();
+        Vector2 rawInput = context.ReadValue<Vector2>();
+        this.playerInput = new Vector3(rawInput.x, 0f, rawInput.y);
     }
 }
