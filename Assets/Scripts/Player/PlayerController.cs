@@ -5,8 +5,11 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private float speed = 400.0f;
-    [SerializeField] private float turnSpeed = 1_000.0f;
+    [SerializeField] protected float speed = 400.0f;
+    [SerializeField] protected float turnSpeed = 1_000.0f;
+    [SerializeField] protected float stepHeight = 0.5f;
+    [SerializeField] protected float stepSmooth = 0.2f;
+    [SerializeField] protected BoxCollider bodyCollider;
 
     protected Rigidbody rigidbody;
     protected Vector3 playerInput;
@@ -20,7 +23,8 @@ public class PlayerController : MonoBehaviour
 
     public void FixedUpdate()
     {
-        HandleMove();
+        this.HandleMove();
+        this.HandleStairs();
     }
 
     private void HandleMove()
@@ -43,5 +47,22 @@ public class PlayerController : MonoBehaviour
     {
         Vector2 rawInput = context.ReadValue<Vector2>();
         this.playerInput = new Vector3(rawInput.x, 0f, rawInput.y);
+    }
+
+    private void HandleStairs()
+    {
+        Vector3 playerBottom = new Vector3(this.transform.position.x, this.transform.position.y - this.bodyCollider.bounds.extents.y + 0.1f, this.transform.position.z);
+        Vector3 maxStepHeight = playerBottom;
+        maxStepHeight.y += this.stepHeight;
+        
+        RaycastHit bottomHit;
+        if(Physics.Raycast(playerBottom, this.transform.forward, out bottomHit, this.bodyCollider.bounds.extents.x + 0.1f))
+        {
+            RaycastHit upperHit;
+            if (Physics.Raycast(maxStepHeight, this.transform.forward, out upperHit, this.bodyCollider.bounds.extents.x + 0.2f) == false)
+            {
+                rigidbody.position += new Vector3(0f, stepSmooth, 0f);
+            }
+        }
     }
 }

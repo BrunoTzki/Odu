@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7678820284216488490}
   - component: {fileID: 259980164913777020}
   - component: {fileID: 5555367323974173262}
-  - component: {fileID: 261138280661679311}
+  - component: {fileID: 6625807263748969895}
   m_Layer: 0
   m_Name: Body
   m_TagString: Untagged
@@ -85,7 +85,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &261138280661679311
+--- !u!65 &6625807263748969895
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -312,6 +312,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 400
   turnSpeed: 1000
+  stepHeight: 0.5
+  stepSmooth: 0.1
+  bodyCollider: {fileID: 6625807263748969895}
 --- !u!114 &5639472824060419971
 MonoBehaviour:
   m_ObjectHideFlags: 0
