@@ -19,5 +19,20 @@ namespace Enemies
         {
             
         }
+        
+        protected virtual void Spawn()
+        {
+            
+        }
+        
+        protected virtual void Attack()
+        {
+            
+        }
+
+        protected virtual void Death()
+        {
+            
+        }
     }
 }
