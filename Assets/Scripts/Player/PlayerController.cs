@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] protected float stepHeight = 0.5f;
     [SerializeField] protected float stepSmooth = 0.2f;
     [SerializeField] protected BoxCollider bodyCollider;
-
+    [SerializeField] protected GroundChecker groundChecker;
     protected Rigidbody rigidbody;
     protected Vector3 playerInput;
     protected Matrix4x4 deformacaoPlano = Matrix4x4.Rotate(Quaternion.Euler(0, 45, 0));
@@ -27,8 +27,11 @@ public class PlayerController : MonoBehaviour
         this.HandleStairs();
     }
 
-    private void HandleMove()
+    protected void HandleMove()
     {
+        if (this.groundChecker.IsOnFloor() == false)
+            return;
+
         Vector3 skewedInput = this.deformacaoPlano.MultiplyPoint3x4(this.playerInput);
         Vector3 playerMovement = skewedInput * this.speed * Time.deltaTime;
 
@@ -49,9 +52,9 @@ public class PlayerController : MonoBehaviour
         this.playerInput = new Vector3(rawInput.x, 0f, rawInput.y);
     }
 
-    private void HandleStairs()
+    protected void HandleStairs()
     {
-        Vector3 playerBottom = new Vector3(this.transform.position.x, this.transform.position.y - this.bodyCollider.bounds.extents.y + 0.1f, this.transform.position.z);
+       Vector3 playerBottom = new Vector3(this.transform.position.x, this.transform.position.y - this.bodyCollider.bounds.extents.y, this.transform.position.z);
         Vector3 maxStepHeight = playerBottom;
         maxStepHeight.y += this.stepHeight;
         
@@ -61,6 +64,7 @@ public class PlayerController : MonoBehaviour
             RaycastHit upperHit;
             if (Physics.Raycast(maxStepHeight, this.transform.forward, out upperHit, this.bodyCollider.bounds.extents.x + 0.2f) == false)
             {
+                Debug.Log("Subir Degrau");
                 rigidbody.position += new Vector3(0f, stepSmooth, 0f);
             }
         }
