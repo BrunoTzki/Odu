@@ -1,13 +1,10 @@
 using BehaviourSystem;
 using UnityEngine;
 
-namespace Movement
+namespace Combat
 {
-    public class MovementBehaviour : BaseBehaviour
+    public class AttackBehaviour : BaseBehaviour
     {
-        [Header("Comportamento de Movimento")]
-        [SerializeField] protected float _velocidade;
-        
         protected Rigidbody _rigidbody;
         protected Transform _target;
         protected Vector3 _targetPosition;

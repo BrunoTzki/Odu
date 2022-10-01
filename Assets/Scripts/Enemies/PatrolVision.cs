@@ -4,7 +4,7 @@ namespace Enemies
 {
     public class PatrolVision : MonoBehaviour
     {
-        public delegate void SeenPlayerDelegate();
+        public delegate void SeenPlayerDelegate(Transform player);
         public event SeenPlayerDelegate OnSeenPlayer;
 
         private bool _hasSeenPlayer;
@@ -18,7 +18,7 @@ namespace Enemies
             
             _hasSeenPlayer = true;
 
-            OnSeenPlayer?.Invoke();
+            OnSeenPlayer?.Invoke(other.transform);
         }
     }
 }

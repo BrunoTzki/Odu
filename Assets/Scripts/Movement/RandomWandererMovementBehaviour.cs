@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Movement
 {
-    [CreateAssetMenu(fileName = "Novo Vagante Aleatório", menuName = "Inimigos/Comportamentos/Vagante/Aleatório")]
+    [CreateAssetMenu(fileName = "Novo Vagante Aleatório", menuName = "Inimigos/Comportamentos/Movimento/Vagante/Aleatório")]
     public class RandomWandererMovementBehaviour : MovementBehaviour
     {
         [Header("Vagante Aleatório")] 
@@ -38,6 +38,13 @@ namespace Movement
             if (!ReachedTargetPosition()) return;
             
             TryRest();
+        }
+        
+        public override void Terminate()
+        {
+            base.Terminate();
+            
+            _rigidbody.velocity = Vector3.zero;
         }
 
         private bool ReachedTargetPosition()
