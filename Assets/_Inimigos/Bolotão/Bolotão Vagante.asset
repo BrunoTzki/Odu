@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 07359f1ce91cd244e93108c6123da375, type: 3}
-  m_Name: Bolotao Vagante
+  m_Name: "Bolot\xE3o Vagante"
   m_EditorClassIdentifier: 
   _velocidade: 2
   _rangeDeMovimento: {x: 5, y: 0, z: 5}
