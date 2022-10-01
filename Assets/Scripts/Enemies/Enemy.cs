@@ -20,7 +20,7 @@ namespace Enemies
         {
             _patrolVision.OnSeenPlayer -= NoticePlayer;
         }
-        
+
         private void Update()
         {
             if (_patrolVision.HasSeenPlayer)
