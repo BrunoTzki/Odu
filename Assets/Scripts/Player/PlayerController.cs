@@ -8,7 +8,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] protected float speed = 400.0f;
     [SerializeField] protected float turnSpeed = 1_000.0f;
     [SerializeField] protected float stepHeight = 0.5f;
-    [SerializeField] protected float stepSmooth = 0.2f;
+    [SerializeField] protected float stepSmooth = 100f;
+    [SerializeField] protected Transform bottomChecker;
     [SerializeField] protected BoxCollider bodyCollider;
     [SerializeField] protected GroundChecker groundChecker;
     protected Rigidbody rigidbody;
@@ -29,13 +30,13 @@ public class PlayerController : MonoBehaviour
 
     protected void HandleMove()
     {
-        if (this.groundChecker.IsOnFloor() == false)
-            return;
-
-        Vector3 skewedInput = this.deformacaoPlano.MultiplyPoint3x4(this.playerInput);
+         Vector3 skewedInput = this.deformacaoPlano.MultiplyPoint3x4(this.playerInput);
         Vector3 playerMovement = skewedInput * this.speed * Time.deltaTime;
 
-        this.rigidbody.velocity = new Vector3(playerMovement.x, this.rigidbody.velocity.y, playerMovement.z);
+        if (this.groundChecker.IsOnFloor())
+        {
+            this.rigidbody.velocity = new Vector3(playerMovement.x, this.rigidbody.velocity.y, playerMovement.z);
+        }
 
         if (playerMovement != Vector3.zero)
         {
@@ -54,18 +55,42 @@ public class PlayerController : MonoBehaviour
 
     protected void HandleStairs()
     {
-       Vector3 playerBottom = new Vector3(this.transform.position.x, this.transform.position.y - this.bodyCollider.bounds.extents.y, this.transform.position.z);
+        Vector3 playerBottom = this.bottomChecker.position;
+        RaycastHit bottomHit;
         Vector3 maxStepHeight = playerBottom;
         maxStepHeight.y += this.stepHeight;
-        
-        RaycastHit bottomHit;
-        if(Physics.Raycast(playerBottom, this.transform.forward, out bottomHit, this.bodyCollider.bounds.extents.x + 0.1f))
+
+        if (Physics.Raycast(playerBottom, this.transform.forward, out bottomHit, 0.5f))
         {
             RaycastHit upperHit;
-            if (Physics.Raycast(maxStepHeight, this.transform.forward, out upperHit, this.bodyCollider.bounds.extents.x + 0.2f) == false)
+
+            if (Physics.Raycast(maxStepHeight, this.transform.forward, out upperHit, 0.5f) == false)
             {
                 Debug.Log("Subir Degrau");
-                rigidbody.position += new Vector3(0f, stepSmooth, 0f);
+                this.rigidbody.position += new Vector3(0f, stepSmooth * Time.deltaTime, 0f);
+            }
+        }
+
+        RaycastHit hitLower45;
+        if (Physics.Raycast(playerBottom, this.transform.TransformDirection(1.5f,0,1), out hitLower45, 0.2f))
+        {
+            RaycastHit hitUpper45;
+            if (!Physics.Raycast(maxStepHeight, this.transform.TransformDirection(1.5f,0,1), out hitUpper45, 0.2f))
+            {
+                Debug.Log("Subir Degrau");
+                this.rigidbody.position += new Vector3(0f, stepSmooth * Time.deltaTime, 0f);
+            }
+        }
+
+        RaycastHit hitLowerMinus45;
+        if (Physics.Raycast(playerBottom, this.transform.TransformDirection(-1.5f,0,1), out hitLowerMinus45, 0.2f))
+        {
+
+            RaycastHit hitUpperMinus45;
+            if (!Physics.Raycast(maxStepHeight, transform.TransformDirection(-1.5f,0,1), out hitUpperMinus45, 0.2f))
+            {
+                Debug.Log("Subir Degrau");
+                this.rigidbody.position += new Vector3(0f, stepSmooth * Time.deltaTime, 0f);
             }
         }
     }
