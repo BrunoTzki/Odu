@@ -4,20 +4,20 @@ using UnityEngine;
 
 public class GroundChecker : MonoBehaviour
 {
-    protected List<GameObject> objectsInContact;
+    protected List<GameObject> objectsInContact = new List<GameObject>();
 
-    public void OnCollisionEnter(Collision collision)
+    public void OnTriggerEnter(Collider collision)
     {
         this.objectsInContact.Add(collision.gameObject);
     }
 
-    public void OnCollisionExit(Collision collision)
+    public void OnTriggerExit(Collider collision)
     {
         this.objectsInContact.Remove(collision.gameObject);
     }
 
     public bool IsOnFloor()
     {
-        return objectsInContact.Count > 0;
+        return this.objectsInContact.Count > 0;
     }
 }
