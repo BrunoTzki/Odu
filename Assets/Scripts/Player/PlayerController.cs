@@ -56,40 +56,33 @@ public class PlayerController : MonoBehaviour
     protected void HandleStairs()
     {
         Vector3 playerBottom = this.bottomChecker.position;
-        RaycastHit bottomHit;
         Vector3 maxStepHeight = playerBottom;
         maxStepHeight.y += this.stepHeight;
 
-        if (Physics.Raycast(playerBottom, this.transform.forward, out bottomHit, 0.5f))
+        RaycastHit hitLower;
+        RaycastHit hitLower45;
+        RaycastHit hitLowerMinus45;
+        if (Physics.Raycast(playerBottom, this.transform.forward, out hitLower, 0.5f))
         {
             RaycastHit upperHit;
 
             if (Physics.Raycast(maxStepHeight, this.transform.forward, out upperHit, 0.5f) == false)
             {
-                Debug.Log("Subir Degrau");
                 this.rigidbody.position += new Vector3(0f, stepSmooth * Time.deltaTime, 0f);
             }
-        }
-
-        RaycastHit hitLower45;
-        if (Physics.Raycast(playerBottom, this.transform.TransformDirection(1.5f,0,1), out hitLower45, 0.2f))
+        } else if (Physics.Raycast(playerBottom, this.transform.TransformDirection(1.5f,0,1), out hitLower45, 0.2f))
         {
             RaycastHit hitUpper45;
             if (!Physics.Raycast(maxStepHeight, this.transform.TransformDirection(1.5f,0,1), out hitUpper45, 0.2f))
             {
-                Debug.Log("Subir Degrau");
                 this.rigidbody.position += new Vector3(0f, stepSmooth * Time.deltaTime, 0f);
             }
-        }
-
-        RaycastHit hitLowerMinus45;
-        if (Physics.Raycast(playerBottom, this.transform.TransformDirection(-1.5f,0,1), out hitLowerMinus45, 0.2f))
+        } else if (Physics.Raycast(playerBottom, this.transform.TransformDirection(-1.5f,0,1), out hitLowerMinus45, 0.2f))
         {
 
             RaycastHit hitUpperMinus45;
             if (!Physics.Raycast(maxStepHeight, transform.TransformDirection(-1.5f,0,1), out hitUpperMinus45, 0.2f))
             {
-                Debug.Log("Subir Degrau");
                 this.rigidbody.position += new Vector3(0f, stepSmooth * Time.deltaTime, 0f);
             }
         }
