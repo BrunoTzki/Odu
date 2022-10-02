@@ -62,16 +62,28 @@ public class PlayerController : MonoBehaviour
         RaycastHit hitLower;
         RaycastHit hitLower45;
         RaycastHit hitLowerMinus45;
-        if (Physics.Raycast(playerBottom, this.transform.forward, out hitLower, 0.5f))
+        if (Physics.Raycast(playerBottom, this.transform.forward, out hitLower, 0.2f))
         {
             RaycastHit upperHit;
+            
+            // A face do objeto não está 'apontando'/'contra' o jogador, ou seja, está apontando para cima, o que não caracteriza o degrau da escada
+            if (Mathf.Approximately(0f, Mathf.Round(hitLower.normal.y)) == false) 
+            {
+                return;
+            }
 
-            if (Physics.Raycast(maxStepHeight, this.transform.forward, out upperHit, 0.5f) == false)
+            if (Physics.Raycast(maxStepHeight, this.transform.forward, out upperHit, 0.2f) == false)
             {
                 this.rigidbody.position += new Vector3(0f, stepSmooth * Time.deltaTime, 0f);
             }
         } else if (Physics.Raycast(playerBottom, this.transform.TransformDirection(1.5f,0,1), out hitLower45, 0.2f))
         {
+            // A face do objeto não está 'apontando'/'contra' o jogador, ou seja, está apontando para cima, o que não caracteriza o degrau da escada
+            if (Mathf.Approximately(0f, Mathf.Round(hitLower45.normal.y)) == false) 
+            {
+                return;
+            }
+
             RaycastHit hitUpper45;
             if (!Physics.Raycast(maxStepHeight, this.transform.TransformDirection(1.5f,0,1), out hitUpper45, 0.2f))
             {
@@ -79,6 +91,11 @@ public class PlayerController : MonoBehaviour
             }
         } else if (Physics.Raycast(playerBottom, this.transform.TransformDirection(-1.5f,0,1), out hitLowerMinus45, 0.2f))
         {
+            // A face do objeto não está 'apontando'/'contra' o jogador, ou seja, está apontando para cima, o que não caracteriza o degrau da escada
+            if (Mathf.Approximately(0f, Mathf.Round(hitLowerMinus45.normal.y)) == false) 
+            {
+                return;
+            }
 
             RaycastHit hitUpperMinus45;
             if (!Physics.Raycast(maxStepHeight, transform.TransformDirection(-1.5f,0,1), out hitUpperMinus45, 0.2f))
