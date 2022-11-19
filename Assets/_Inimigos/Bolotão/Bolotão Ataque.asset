@@ -13,6 +13,58 @@ MonoBehaviour:
   m_Name: "Bolot\xE3o Ataque"
   m_EditorClassIdentifier: 
   _tempoDeCarga: 2
-  _velocidadeDeAvanco: 20
+  _velocidadeBaseDeAvanco: 30
+  _curvaDeVelocidadeDeAvanco:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.3
+      value: 1
+      inSlope: -0
+      outSlope: 0
+      tangentMode: 1
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.5
+      value: 1
+      inSlope: -0
+      outSlope: -0.89656234
+      tangentMode: 5
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.85
+      value: 0.5
+      inSlope: -1.4285713
+      outSlope: -3.1258993
+      tangentMode: 5
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.13599767
+    - serializedVersion: 3
+      time: 1
+      value: 0.1
+      inSlope: -0.1100885
+      outSlope: -0.1100885
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.18830489
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _distanciaDeAvanco: 8
   _descansaAposAvanco: 1
   _tempoDeDescanso: 3

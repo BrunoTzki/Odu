@@ -6,12 +6,14 @@ namespace Combat
     public class AttackBehaviour : BaseBehaviour
     {
         protected Rigidbody _rigidbody;
+        protected Collider _bodyCollider;
         protected Transform _target;
         protected Vector3 _targetPosition;
 
-        public virtual void SetData(Rigidbody rigidBody, Transform target = null)
+        public virtual void SetData(Rigidbody rigidBody, Collider bodyCollider, Transform target = null)
         {
             _rigidbody = rigidBody;
+            _bodyCollider = bodyCollider;
             _target = target;
         }
 

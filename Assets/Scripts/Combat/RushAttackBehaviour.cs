@@ -11,13 +11,18 @@ namespace Combat
         [SerializeField] private float _tempoDeCarga;
 
         [Header("Avanço")]
-        [SerializeField] private float _velocidadeDeAvanco;
+        [SerializeField] private float _velocidadeBaseDeAvanco;
+        [SerializeField] private AnimationCurve _curvaDeVelocidadeDeAvanco;
+        [SerializeField] private float _distanciaDeAvanco;
         [SerializeField] private bool _descansaAposAvanco;
         [SerializeField] private float _tempoDeDescanso;
 
         private float _timer;
         private bool _wannaRush;
+        private bool _isRushing;
         private bool _isDone;
+
+        private float _initialDistanceToTarget;
         
         public override void Initiate()
         {
@@ -25,6 +30,7 @@ namespace Combat
 
             _timer = 0;
             _wannaRush = false;
+            _isRushing = false;
             _isDone = false;
             
             _rigidbody.velocity = Vector3.zero;
@@ -42,13 +48,17 @@ namespace Combat
             }
             else
             {
+                Rush();
                 TryTerminate();
             }
         }
 
         private void TryTerminate()
         {
-            if (!ReachedTarget()) return;
+            if (!HasReachedTarget()) return;
+            
+            _bodyCollider.enabled = true;
+            _isRushing = false;
             
             if (_descansaAposAvanco)
             {
@@ -76,31 +86,50 @@ namespace Combat
             if (_timer >= _tempoDeCarga)
             {
                 _wannaRush = true;
-                Rush();
+                StartRush();
             }
             else
             {
                 _timer += Time.deltaTime;
+                _targetPosition = _target.position;
             }
-
-            _targetPosition = _target.position;
         }
 
+        private void StartRush()
+        {
+            _bodyCollider.enabled = false;
+            
+            var movementDirection = (_targetPosition - _rigidbody.transform.position).normalized;
+            _targetPosition = _rigidbody.transform.position + movementDirection * _distanciaDeAvanco;
+            
+            _isRushing = true;
+        }
+        
         private void Rush()
         {
             var movementDirection = (_targetPosition - _rigidbody.transform.position).normalized;
-            var movementWithSpeed = movementDirection * _velocidadeDeAvanco;
-
-            _rigidbody.velocity = movementWithSpeed;
+            var distanceToTarget = GetTargetDistance();
+            var distanceProgress01 = 1 - distanceToTarget / _distanciaDeAvanco;
+            
+            _rigidbody.velocity = movementDirection * (_velocidadeBaseDeAvanco * _curvaDeVelocidadeDeAvanco.Evaluate(distanceProgress01));
+        }
+        
+        private bool HasReachedTarget()
+        {
+            return GetTargetDistance() < 0.1f;
         }
 
-        private bool ReachedTarget()
+        private float GetTargetDistance()
         {
-            return Vector3.Distance(_rigidbody.transform.position, _targetPosition) < 0.1f;
+            var transformPositionCorrected = new Vector2(_rigidbody.transform.position.x, _rigidbody.transform.position.z);
+            var targetPositionCorrected = new Vector2(_targetPosition.x, _targetPosition.z);
+
+            return Vector3.Distance(transformPositionCorrected, targetPositionCorrected);
         }
 
         public override void Terminate()
         {
+            _bodyCollider.enabled = true;
             base.Terminate();
         }
     }

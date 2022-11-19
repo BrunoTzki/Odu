@@ -11,7 +11,8 @@ namespace Enemies
     {
         [SerializeField] protected HealthSystem _healthSystem;
         [SerializeField] protected PatrolVision _patrolVision;
-        [SerializeField] protected Rigidbody _rigidBody;
+        [SerializeField] protected Rigidbody _rigidbody;
+        [SerializeField] protected Collider _bodyCollider;
         
         [Header("Comportamentos")]
         [SerializeField] protected MovementBehaviour _movimentoDePatrulha;
@@ -88,7 +89,7 @@ namespace Enemies
         {
             _currentBehaviour = CurrentBehaviour.NoticePlayer;
             
-            _ataque.SetData(_rigidBody, player);
+            _ataque.SetData(_rigidbody, _bodyCollider, player);
             Attack();
         }
         
@@ -96,7 +97,7 @@ namespace Enemies
         {
             _currentBehaviour = CurrentBehaviour.Spawn;
             
-            _movimentoDePatrulha.SetData(_rigidBody);
+            _movimentoDePatrulha.SetData(_rigidbody);
             _movimentoDePatrulha.Initiate();
         }
         

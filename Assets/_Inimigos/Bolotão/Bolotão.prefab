@@ -66,7 +66,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _healthSystem: {fileID: 0}
   _patrolVision: {fileID: 4838596953886085265}
-  _rigidBody: {fileID: 4838596953886085264}
+  _rigidbody: {fileID: 4838596953886085264}
+  _bodyCollider: {fileID: 4838596954432716043}
   _movimentoDePatrulha: {fileID: 11400000, guid: 71bd980c7c4b3114cbc37b255ab3c5c8,
     type: 2}
   _ataque: {fileID: 11400000, guid: 0753e43d865310d4bb853821c6cdc4f5, type: 2}
