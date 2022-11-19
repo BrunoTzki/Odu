@@ -14,6 +14,7 @@ public class InteractableDetector : MonoBehaviour
 
         Debug.Log(other.name);
         _currentInteractable = interactable;
+        _currentInteractable.Highlight(true);
     }
 
     private void OnTriggerExit(Collider other)
@@ -24,6 +25,7 @@ public class InteractableDetector : MonoBehaviour
         if (!interactable.Equals(_currentInteractable)) return;
 
         Debug.Log("Saiu: " + other.name);
+        _currentInteractable.Highlight(false);
         _currentInteractable = null;
     }
 }
