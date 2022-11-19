@@ -20,5 +20,13 @@ namespace Enemies
 
             OnSeenPlayer?.Invoke(other.transform);
         }
+        
+        //TODO: Make Better Vision Loss (Or ignore and make it always follow the player after seen)
+        private void OnTriggerExit(Collider other)
+        {
+            if (!other.CompareTag("Player")) return;
+            
+            _hasSeenPlayer = false;
+        }
     }
 }

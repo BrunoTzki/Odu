@@ -22,8 +22,6 @@ namespace Combat
         private bool _isRushing;
         private bool _isDone;
 
-        private float _initialDistanceToTarget;
-        
         public override void Initiate()
         {
             base.Initiate();

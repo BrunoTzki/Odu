@@ -67,6 +67,7 @@ namespace Enemies
                 case CurrentBehaviour.NoticePlayer:
                     break;
                 case CurrentBehaviour.Patrol:
+                    Patrol();
                     break;
                 case CurrentBehaviour.Attack:
                     _ataque.Tick();
@@ -76,6 +77,13 @@ namespace Enemies
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+        }
+
+        protected virtual void StartPatrol()
+        {
+            Patrol();
+
+            _movimentoDePatrulha.Initiate();
         }
         
         protected virtual void Patrol()
@@ -90,7 +98,7 @@ namespace Enemies
             _currentBehaviour = CurrentBehaviour.NoticePlayer;
             
             _ataque.SetData(_rigidbody, _bodyCollider, player);
-            Attack();
+            StartAttack();
         }
         
         protected virtual void Spawn()
@@ -101,7 +109,7 @@ namespace Enemies
             _movimentoDePatrulha.Initiate();
         }
         
-        protected virtual void Attack()
+        protected virtual void StartAttack()
         {
             _currentBehaviour = CurrentBehaviour.Attack;
             
@@ -110,7 +118,7 @@ namespace Enemies
         
         private void OnAttackEnded()
         {
-            Patrol();
+            StartPatrol();
         }
 
         protected virtual void Death()
