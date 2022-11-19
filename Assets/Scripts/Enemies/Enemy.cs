@@ -118,7 +118,15 @@ namespace Enemies
         
         private void OnAttackEnded()
         {
-            StartPatrol();
+            //TODO: Make this in a better way because of the vision (maybe an attack range or dont go back to patrol at all)
+            if (_patrolVision.HasSeenPlayer)
+            {
+                StartAttack();
+            }
+            else
+            {
+                StartPatrol();
+            }
         }
 
         protected virtual void Death()
