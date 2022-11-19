@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class InteractableDetector : MonoBehaviour
 {
-    private IInteractable _currentInteractable;
+    private List<IInteractable> _interactablesList = new List<IInteractable>();
 
     private void OnTriggerEnter(Collider other)
     {
@@ -13,8 +13,9 @@ public class InteractableDetector : MonoBehaviour
         if (interactable is null) return;
 
         Debug.Log(other.name);
-        _currentInteractable = interactable;
-        _currentInteractable.Highlight(true);
+        
+        interactable.Highlight(true);
+        _interactablesList.Add(interactable);
     }
 
     private void OnTriggerExit(Collider other)
@@ -22,10 +23,10 @@ public class InteractableDetector : MonoBehaviour
         other.gameObject.TryGetComponent<IInteractable>(out var interactable);
         
         if (interactable is null) return;
-        if (!interactable.Equals(_currentInteractable)) return;
+        if (!_interactablesList.Contains(interactable)) return;
 
         Debug.Log("Saiu: " + other.name);
-        _currentInteractable.Highlight(false);
-        _currentInteractable = null;
+        interactable.Highlight(false);
+        _interactablesList.Remove(interactable);
     }
 }
