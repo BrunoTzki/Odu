@@ -12,8 +12,6 @@ public class InteractableDetector : MonoBehaviour
 
         if (interactable is null) return;
 
-        Debug.Log(other.name);
-        
         interactable.Highlight(true);
         _interactablesList.Add(interactable);
     }
@@ -25,8 +23,14 @@ public class InteractableDetector : MonoBehaviour
         if (interactable is null) return;
         if (!_interactablesList.Contains(interactable)) return;
 
-        Debug.Log("Saiu: " + other.name);
         interactable.Highlight(false);
         _interactablesList.Remove(interactable);
+    }
+
+    public bool TryGetCurrentInteractable(out IInteractable interactable)
+    {
+        interactable = _interactablesList[0];
+
+        return interactable is not null;
     }
 }
