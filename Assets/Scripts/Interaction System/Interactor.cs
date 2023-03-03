@@ -22,7 +22,15 @@ public class Interactor : MonoBehaviour
         _inputs.Main.Interact.performed += TryInteract;
     }
 
-    private void TryInteract(InputAction.CallbackContext context)
+    public void TryInteract(InputAction.CallbackContext context)
+    {
+        if (_detector.TryGetCurrentInteractable(out var interactable))
+        {
+            interactable.Interact();
+        }
+    }
+
+    public void TryInteractX()
     {
         if (_detector.TryGetCurrentInteractable(out var interactable))
         {
