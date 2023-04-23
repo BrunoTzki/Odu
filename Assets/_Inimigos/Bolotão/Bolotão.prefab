@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2062574320438452680}
   - component: {fileID: 2936883087754941699}
+  - component: {fileID: 1655393775}
   m_Layer: 0
   m_Name: Attack Collider
   m_TagString: Untagged
@@ -45,6 +46,19 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1655393775
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1750209436640356713}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0176a682fadddca4d9723b42efe8ce1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageAmount: 20
 --- !u!1 &4838596953886085260
 GameObject:
   m_ObjectHideFlags: 0
@@ -56,7 +70,6 @@ GameObject:
   - component: {fileID: 4838596953886085261}
   - component: {fileID: 4838596953886085264}
   - component: {fileID: 4838596953886085270}
-  - component: {fileID: 4838596953886085265}
   m_Layer: 0
   m_Name: "Bolot\xE3o"
   m_TagString: Untagged
@@ -96,7 +109,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 4
   m_CollisionDetection: 0
 --- !u!114 &4838596953886085270
 MonoBehaviour:
@@ -111,26 +124,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _healthSystem: {fileID: 0}
-  _patrolVision: {fileID: 4838596953886085265}
+  _patrolVision: {fileID: 1193107258}
   _rigidbody: {fileID: 4838596953886085264}
   _bodyCollider: {fileID: 4838596954432716043}
-  damageCollider: {fileID: 2936883087754941699}
-  damageAmount: 20
   _movimentoDePatrulha: {fileID: 11400000, guid: 71bd980c7c4b3114cbc37b255ab3c5c8,
     type: 2}
   _ataque: {fileID: 11400000, guid: 0753e43d865310d4bb853821c6cdc4f5, type: 2}
---- !u!114 &4838596953886085265
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4838596953886085260}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a20e2eb6684a354a9d10a25c129d316, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &4838596954432716037
 GameObject:
   m_ObjectHideFlags: 0
@@ -193,7 +192,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 55473adbdd3305b40820f0ca50313084, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -238,6 +237,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4838596954704903403}
   - component: {fileID: 4838596954704903401}
+  - component: {fileID: 1193107258}
   m_Layer: 0
   m_Name: Patrol Vision
   m_TagString: Untagged
@@ -273,3 +273,15 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 10
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1193107258
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4838596954704903402}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a20e2eb6684a354a9d10a25c129d316, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

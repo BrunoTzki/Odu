@@ -17,10 +17,6 @@ namespace Combat
         [SerializeField] private bool _descansaAposAvanco;
         [SerializeField] private float _tempoDeDescanso;
 
-        [Header("Ataque")]
-        [SerializeField] Collider damageCollider;
-        [SerializeField] int damageAmount;
-
         private float _timer;
         private bool _wannaRush;
         private bool _isRushing;

@@ -14,9 +14,6 @@ namespace Enemies
         [SerializeField] protected Rigidbody _rigidbody;
         [SerializeField] protected Collider _bodyCollider;
 
-        [Header("Ataque")]
-        [SerializeField] Collider attackCollider;
-        [SerializeField] int damageAmount;
 
         [Header("Comportamentos")]
         [SerializeField] protected MovementBehaviour _movimentoDePatrulha;
@@ -61,6 +58,7 @@ namespace Enemies
                 Patrol();
             }
         }
+
 
         protected virtual void Tick()
         {
