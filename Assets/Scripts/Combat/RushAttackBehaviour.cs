@@ -17,6 +17,10 @@ namespace Combat
         [SerializeField] private bool _descansaAposAvanco;
         [SerializeField] private float _tempoDeDescanso;
 
+        [Header("Ataque")]
+        [SerializeField] Collider damageCollider;
+        [SerializeField] int damageAmount;
+
         private float _timer;
         private bool _wannaRush;
         private bool _isRushing;
@@ -48,6 +52,15 @@ namespace Combat
             {
                 Rush();
                 TryTerminate();
+            }
+        }
+
+        void OnTriggerEnter(Collider other)
+        {
+            if (other.CompareTag("Player") && other == damageCollider)
+            {
+                // Chama a função takeDamage do script PlayerStats
+                other.GetComponent<PlayerStats>().TakeDamage(damageAmount);
             }
         }
 

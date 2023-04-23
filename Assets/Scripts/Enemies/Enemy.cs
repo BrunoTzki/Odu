@@ -13,7 +13,11 @@ namespace Enemies
         [SerializeField] protected PatrolVision _patrolVision;
         [SerializeField] protected Rigidbody _rigidbody;
         [SerializeField] protected Collider _bodyCollider;
-        
+
+        //[Header("Ataque")]
+        //[SerializeField] Collider damageCollider;
+        //[SerializeField] int damageAmount;
+
         [Header("Comportamentos")]
         [SerializeField] protected MovementBehaviour _movimentoDePatrulha;
         [SerializeField] protected AttackBehaviour _ataque;
@@ -57,6 +61,15 @@ namespace Enemies
                 Patrol();
             }
         }
+
+        //void OnTriggerEnter(Collider other)
+        //{
+        //    if (other.CompareTag("Player") && other == damageCollider)
+        //    {
+        //        Debug.Log("Colidiu");
+        //        other.GetComponent<PlayerStats>().TakeDamage(damageAmount);
+        //    }
+        //}
 
         protected virtual void Tick()
         {
