@@ -55,15 +55,6 @@ namespace Combat
             }
         }
 
-        void OnTriggerEnter(Collider other)
-        {
-            if (other.CompareTag("Player") && other == damageCollider)
-            {
-                // Chama a função takeDamage do script PlayerStats
-                other.GetComponent<PlayerStats>().TakeDamage(damageAmount);
-            }
-        }
-
         private void TryTerminate()
         {
             if (!HasReachedTarget()) return;
