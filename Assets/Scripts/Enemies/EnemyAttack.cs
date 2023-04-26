@@ -5,15 +5,16 @@ using UnityEngine;
 public class EnemyAttack : MonoBehaviour
 {
     [Header("Ataque")]
+
+    [SerializeField] protected Collider _attackCollider;
     [SerializeField] int damageAmount;
 
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log("Colidiu");
             other.GetComponentInParent<PlayerStats>().TakeDamage(damageAmount);
+            _attackCollider.enabled = false;
         }
     }
-
 }

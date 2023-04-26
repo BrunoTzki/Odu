@@ -7,13 +7,15 @@ namespace Combat
     {
         protected Rigidbody _rigidbody;
         protected Collider _bodyCollider;
+        protected Collider _attackCollider;
         protected Transform _target;
         protected Vector3 _targetPosition;
 
-        public virtual void SetData(Rigidbody rigidBody, Collider bodyCollider, Transform target = null)
+        public virtual void SetData(Rigidbody rigidBody, Collider bodyCollider, Collider attackCollider, Transform target = null)
         {
             _rigidbody = rigidBody;
             _bodyCollider = bodyCollider;
+            _attackCollider = attackCollider;
             _target = target;
         }
 

@@ -56,6 +56,7 @@ namespace Combat
             if (!HasReachedTarget()) return;
             
             _bodyCollider.enabled = true;
+            _attackCollider.enabled = false;
             _isRushing = false;
             
             if (_descansaAposAvanco)
@@ -96,7 +97,9 @@ namespace Combat
         private void StartRush()
         {
             _bodyCollider.enabled = false;
-            
+            _attackCollider.enabled = true;
+
+
             var movementDirection = (_targetPosition - _rigidbody.transform.position).normalized;
             _targetPosition = _rigidbody.transform.position + movementDirection * _distanciaDeAvanco;
             
@@ -128,6 +131,7 @@ namespace Combat
         public override void Terminate()
         {
             _bodyCollider.enabled = true;
+            _attackCollider.enabled = false;
             base.Terminate();
         }
     }
