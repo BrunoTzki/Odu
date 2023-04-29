@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3959173956902026295}
   - component: {fileID: 98538412454212498}
   - component: {fileID: 2790792920918165336}
+  - component: {fileID: 366371852259270088}
   m_Layer: 0
   m_Name: gol
   m_TagString: Untagged
@@ -27,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 4447901736160405133}
   m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
   m_LocalPosition: {x: -24.095924, y: 11.994137, z: 12.200019}
-  m_LocalScale: {x: 100, y: 100, z: 100}
+  m_LocalScale: {x: 122.979996, y: 152.23694, z: 122.979996}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -86,3 +87,17 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &366371852259270088
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4447901736160405133}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 7510871892734908786, guid: b6e588feaeb58ce458f895ac4b82f6f6, type: 3}

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8627840868761402207}
   - component: {fileID: 4617284850134676730}
   - component: {fileID: 7491477750159573040}
+  - component: {fileID: 3792705091849291880}
   m_Layer: 0
   m_Name: dois pneus
   m_TagString: Untagged
@@ -83,3 +84,16 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!135 &3792705091849291880
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9004928910528258533}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.0059277876
+  m_Center: {x: 0, y: 0, z: 0.0033331562}
