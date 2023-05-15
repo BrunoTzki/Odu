@@ -29,8 +29,14 @@ public class InteractableDetector : MonoBehaviour
 
     public bool TryGetCurrentInteractable(out IInteractable interactable)
     {
-        interactable = _interactablesList[0];
+        if (_interactablesList.Count > 0)
+        {
+            interactable = _interactablesList[0];
+            _interactablesList.Remove(interactable);
+            return true;
+        }
 
-        return interactable is not null;
+        interactable = null;
+        return false;
     }
 }

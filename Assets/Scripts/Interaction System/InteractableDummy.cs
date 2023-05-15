@@ -9,23 +9,17 @@ public class InteractableDummy : MonoBehaviour, IInteractable
     [SerializeField] private Color _highlightColor;
     [SerializeField] private Color _interactedColor;
 
-    [SerializeField] private DialogueTrigger _dialogue;
-
     private bool _hasInteracted;
     
     public void Highlight(bool turnOn)
     {
         if (_hasInteracted) return;
-        
         _visual.material.color = turnOn ? _highlightColor : _highlightOffColor;
     }
 
-    public void Interact()
+    public virtual void Interact()
     {
         _visual.material.color = _interactedColor;
-
         _hasInteracted = true;
-
-        _dialogue.TriggerDialogue();
     }
 }

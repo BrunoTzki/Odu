@@ -23,23 +23,25 @@ namespace Movement
             _isResting = false;
             SetNewTarget();
         }
-        
+
         public override void Tick()
         {
             base.Tick();
-            
+
             if (_isResting) return;
-            
+
             var movementDirection = (_targetPosition - _rigidbody.transform.position).normalized;
             var movementWithSpeed = movementDirection * _velocidade;
-            
+
             _rigidbody.velocity = movementWithSpeed;
 
             if (!ReachedTargetPosition()) return;
-            
+
             TryRest();
         }
-        
+
+
+
         public override void Terminate()
         {
             base.Terminate();

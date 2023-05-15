@@ -11,7 +11,7 @@ public class AraBar : MonoBehaviour
         slider.maxValue = health;
         slider.value = health;
     }
-    // Start is called before the first frame update
+
     public void SetAra(int health)
     {
         slider.value = health;
