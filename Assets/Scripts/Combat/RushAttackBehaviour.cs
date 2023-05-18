@@ -17,10 +17,18 @@ namespace Combat
         [SerializeField] private bool _descansaAposAvanco;
         [SerializeField] private float _tempoDeDescanso;
 
+        [Header("Perseguição")]
+        [SerializeField] private float _distanciaPerseguicao;
+
         private float _timer;
         private bool _wannaRush;
         private bool _isRushing;
         private bool _isDone;
+        private bool _isChasing;
+        private Transform _playerTransform;
+        private bool _playerDetected;
+
+        private Vector3 _currentDirection;
 
         public override void Initiate()
         {
@@ -30,7 +38,10 @@ namespace Combat
             _wannaRush = false;
             _isRushing = false;
             _isDone = false;
-            
+            _isChasing = false;
+            _playerTransform = null;
+            _playerDetected = false;
+
             _rigidbody.velocity = Vector3.zero;
         }
 
@@ -39,30 +50,39 @@ namespace Combat
             base.Tick();
 
             if (_isDone) return;
-            
+
             if (!_wannaRush)
             {
                 ChargeAndAim();
             }
             else
             {
-                Rush();
-                TryTerminate();
+                if (!_isChasing)
+                {
+                    Rush();
+                    TryTerminate();
+                }
+                else
+                {
+                    ChasePlayer();
+                    TryTerminate();
+                }
             }
         }
 
         private void TryTerminate()
         {
-            if (!HasReachedTarget()) return;
-            
+            if (!HasReachedTarget())
+                return;
+
             _bodyCollider.enabled = true;
             _attackCollider.enabled = false;
             _isRushing = false;
-            
+
             if (_descansaAposAvanco)
             {
                 _rigidbody.velocity = Vector3.zero;
-                
+
                 ScriptableObjectCoroutineRunner.Instance.RunCoroutine(RestCoroutine());
             }
             else
@@ -74,47 +94,89 @@ namespace Combat
         private IEnumerator RestCoroutine()
         {
             _isDone = true;
-            
+
             yield return new WaitForSeconds(_tempoDeDescanso);
-            
+
             Terminate();
         }
 
         private void ChargeAndAim()
         {
+            _timer += Time.deltaTime;
+
+            if (_playerTransform != null)
+            {
+                _currentDirection = (_playerTransform.position - _rigidbody.transform.position).normalized;
+                _rigidbody.rotation = Quaternion.LookRotation(_currentDirection);
+                _targetPosition = _playerTransform.position;
+            }
+
+            if (_wannaRush)
+            {
+                StartRush();
+                _wannaRush = false;
+            }
+
             if (_timer >= _tempoDeCarga)
             {
                 _wannaRush = true;
-                StartRush();
+                _timer = 0;
             }
+            
+
             else
             {
-                _timer += Time.deltaTime;
-                _targetPosition = _target.position;
+                if (!_playerDetected && Vector3.Distance(_rigidbody.transform.position, _target.position) <= _distanciaPerseguicao)
+                {
+                    _playerTransform = _target;
+                    _playerDetected = true;
+                }
+
+                if (_playerTransform != null)
+                {
+                    _targetPosition = _playerTransform.position;
+                }
             }
+
         }
+
+
 
         private void StartRush()
         {
             _bodyCollider.enabled = false;
             _attackCollider.enabled = true;
 
+            _rigidbody.rotation = Quaternion.LookRotation(_currentDirection);
 
             var movementDirection = (_targetPosition - _rigidbody.transform.position).normalized;
+
             _targetPosition = _rigidbody.transform.position + movementDirection * _distanciaDeAvanco;
-            
+
             _isRushing = true;
         }
-        
+
         private void Rush()
         {
+            _bodyCollider.enabled = false;
+            _attackCollider.enabled = true;
+
             var movementDirection = (_targetPosition - _rigidbody.transform.position).normalized;
             var distanceToTarget = GetTargetDistance();
             var distanceProgress01 = 1 - distanceToTarget / _distanciaDeAvanco;
-            
+
+            _rigidbody.rotation = Quaternion.LookRotation(_currentDirection);
             _rigidbody.velocity = movementDirection * (_velocidadeBaseDeAvanco * _curvaDeVelocidadeDeAvanco.Evaluate(distanceProgress01));
         }
-        
+
+        private void ChasePlayer()
+        {
+            _bodyCollider.enabled = true;
+            _attackCollider.enabled = false;
+            var movementDirection = (_playerTransform.position - _rigidbody.transform.position).normalized;
+            _rigidbody.velocity = movementDirection * _velocidadeBaseDeAvanco;
+        }
+
         private bool HasReachedTarget()
         {
             return GetTargetDistance() < 0.1f;

@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 948a90d9bce048444887c2f893773b6d, type: 3}
   m_Name: "Bolot\xE3o Ataque"
   m_EditorClassIdentifier: 
-  _tempoDeCarga: 1.8
-  _velocidadeBaseDeAvanco: 42
+  _tempoDeCarga: 2
+  _velocidadeBaseDeAvanco: 30
   _curvaDeVelocidadeDeAvanco:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0.004173279
-      value: 0.3007202
+      time: 0
+      value: 0.09420776
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -27,36 +27,26 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 0.22220674
-      value: 0.92104673
-      inSlope: 1.4142439
-      outSlope: 1.4142439
+      time: 0.3
+      value: 1
+      inSlope: 0
+      outSlope: 0
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.17686115
+      inWeight: 0
+      outWeight: 0
     - serializedVersion: 3
-      time: 0.5280756
-      value: 0.6116402
-      inSlope: -2.441224
-      outSlope: -2.441224
+      time: 1
+      value: 0.05
+      inSlope: 0
+      outSlope: 0
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.10660055
-    - serializedVersion: 3
-      time: 1.0041504
-      value: 0.30662233
-      inSlope: -0.007967486
-      outSlope: -0.007967486
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33370996
+      inWeight: 0
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _distanciaDeAvanco: 9
+  _distanciaDeAvanco: 8
   _descansaAposAvanco: 1
-  _tempoDeDescanso: 1.5
-  _distanciaPerseguicao: 150
+  _tempoDeDescanso: 3

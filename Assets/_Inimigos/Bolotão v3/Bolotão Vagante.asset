@@ -14,6 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _velocidade: 2
   _rangeDeMovimento: {x: 5, y: 0, z: 5}
-  _distanciaPerseguicao: 150
   _descansa: 1
-  _tempoDeDescanso: 1.5
+  _tempoDeDescanso: 2
