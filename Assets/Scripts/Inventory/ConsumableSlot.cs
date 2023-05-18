@@ -6,6 +6,9 @@ public class ConsumableSlot : MonoBehaviour
     public Image icon;
     public Button removeButton;
 
+    public Image itemImage;
+    public Text itemDescription;
+
     Item item;
     public void AddItem(Item newItem)
     {
@@ -35,6 +38,8 @@ public class ConsumableSlot : MonoBehaviour
         if (item != null)
         {
             item.Use();
+            itemImage.sprite = item.itemSprite;
+            itemDescription.text = item.itemDescription;
         }
     }
 

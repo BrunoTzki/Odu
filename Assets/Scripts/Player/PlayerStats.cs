@@ -12,8 +12,6 @@ public class PlayerStats : MonoBehaviour
     public int maxAra;
     public int currentAra;
 
-    public AraBar araBar;
-
     private bool isInvencible = false;
 
     // Start is called before the first frame update

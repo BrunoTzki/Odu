@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class InventoryUI : MonoBehaviour
 {
@@ -38,5 +39,4 @@ public class InventoryUI : MonoBehaviour
             }
         }
     }
-
 }
