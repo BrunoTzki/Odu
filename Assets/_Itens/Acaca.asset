@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Acaca
   m_EditorClassIdentifier: 
   itemName: "Aca\xE7a"
-  itemSprite: {fileID: 21300000, guid: ffa3c053fa1aed147b2915bb70e69b75, type: 3}
-  itemIconSprite: {fileID: 21300000, guid: ffa3c053fa1aed147b2915bb70e69b75, type: 3}
+  itemSprite: {fileID: 21300000, guid: d62c39b7dc10ca44caabb68b90b8c4e8, type: 3}
+  itemIconSprite: {fileID: 21300000, guid: 3b837053c6e6d1945958f83e7d01bf80, type: 3}
   itemDescription: "O Aca\xE7\xE1, ou Ec\xF4 \xE9 uma comida ritual do candombl\xE9
     e da cozinha da Bahia. Feito com milho branco ou vermelho, que fica de molho
     em \xE1gua de um dia para o outro, e deve ser depois passado em um moinho para
