@@ -11,14 +11,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField] protected float stepSmooth = 0.2f;
     [SerializeField] protected BoxCollider bodyCollider;
 
-    protected Rigidbody rigidbody;
+    protected Rigidbody rb;
     protected Vector3 playerInput;
     protected Matrix4x4 deformacaoPlano = Matrix4x4.Rotate(Quaternion.Euler(0, 45, 0));
 
     // Start is called before the first frame update
     void Start()
     {
-        this.rigidbody = GetComponent<Rigidbody>();
+        this.rb = GetComponent<Rigidbody>();
     }
 
     public void FixedUpdate()
@@ -32,7 +32,7 @@ public class PlayerController : MonoBehaviour
         Vector3 skewedInput = this.deformacaoPlano.MultiplyPoint3x4(this.playerInput);
         Vector3 playerMovement = skewedInput * this.speed * Time.deltaTime;
 
-        this.rigidbody.velocity = new Vector3(playerMovement.x, this.rigidbody.velocity.y, playerMovement.z);
+        this.rb.velocity = new Vector3(playerMovement.x, this.rb.velocity.y, playerMovement.z);
 
         if (playerMovement != Vector3.zero)
         {
@@ -61,7 +61,7 @@ public class PlayerController : MonoBehaviour
             RaycastHit upperHit;
             if (Physics.Raycast(maxStepHeight, this.transform.forward, out upperHit, this.bodyCollider.bounds.extents.x + 0.2f) == false)
             {
-                rigidbody.position += new Vector3(0f, stepSmooth, 0f);
+                rb.position += new Vector3(0f, stepSmooth, 0f);
             }
         }
     }
