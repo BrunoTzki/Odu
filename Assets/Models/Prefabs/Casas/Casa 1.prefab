@@ -842,6 +842,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: grade vertical (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 4318039886067210762, guid: 4094c4e386cc7714da6080d92352c979,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4094c4e386cc7714da6080d92352c979, type: 3}
 --- !u!4 &2026571997597545856 stripped
@@ -2067,6 +2072,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: janela (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 5573192676917861051, guid: 6233960632815d247865610dc291b31e,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6233960632815d247865610dc291b31e, type: 3}
 --- !u!4 &8818288021479516513 stripped
@@ -2236,6 +2246,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: grade losangulo
+      objectReference: {fileID: 0}
+    - target: {fileID: 5324981868718794376, guid: 6c22a9fa3c1ccf14ba62843f04d4f0dd,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6c22a9fa3c1ccf14ba62843f04d4f0dd, type: 3}
@@ -5810,6 +5825,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: janela 4 folhas
+      objectReference: {fileID: 0}
+    - target: {fileID: 721157560840534776, guid: 70c9aa4085f588142aaeaf29e5425de0,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 70c9aa4085f588142aaeaf29e5425de0, type: 3}

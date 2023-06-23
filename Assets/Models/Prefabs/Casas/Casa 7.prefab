@@ -1098,6 +1098,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: grade vertical
       objectReference: {fileID: 0}
+    - target: {fileID: 4318039886067210762, guid: 4094c4e386cc7714da6080d92352c979,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4094c4e386cc7714da6080d92352c979, type: 3}
 --- !u!4 &3106825016361807928 stripped
@@ -2093,12 +2098,22 @@ PrefabInstance:
       propertyPath: m_VersionIndex
       value: 581
       objectReference: {fileID: 0}
+    - target: {fileID: 680476762535737121, guid: fc1e4bb94f27ed54fb2b9c8effd345db,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 2126545873003264060, guid: fc1e4bb94f27ed54fb2b9c8effd345db,
         type: 3}
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 6250918237399764805, guid: fc1e4bb94f27ed54fb2b9c8effd345db,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6977892296664568296, guid: fc1e4bb94f27ed54fb2b9c8effd345db,
         type: 3}
       propertyPath: m_Mesh
       value: 
@@ -2177,6 +2192,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: barra de luz
+      objectReference: {fileID: 0}
+    - target: {fileID: 8763705392951340830, guid: fc1e4bb94f27ed54fb2b9c8effd345db,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fc1e4bb94f27ed54fb2b9c8effd345db, type: 3}
@@ -4761,6 +4781,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: grade vertical (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4318039886067210762, guid: 4094c4e386cc7714da6080d92352c979,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4094c4e386cc7714da6080d92352c979, type: 3}

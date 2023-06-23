@@ -1065,6 +1065,11 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
+    - target: {fileID: 8314775901040716414, guid: 5c9613bde4285104d914b1ba614ec29a,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
     - target: {fileID: 8771889716720024987, guid: 5c9613bde4285104d914b1ba614ec29a,
         type: 3}
       propertyPath: m_StaticEditorFlags
@@ -2009,7 +2014,8 @@ MonoBehaviour:
   m_fontAsset: {fileID: 11400000, guid: d047c999c765b444984926c201df687a, type: 2}
   m_sharedMaterial: {fileID: 2695282038110586608, guid: d047c999c765b444984926c201df687a,
     type: 2}
-  m_fontSharedMaterials: []
+  m_fontSharedMaterials:
+  - {fileID: 2695282038110586608, guid: d047c999c765b444984926c201df687a, type: 2}
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
@@ -5338,7 +5344,8 @@ MonoBehaviour:
   m_fontAsset: {fileID: 11400000, guid: d047c999c765b444984926c201df687a, type: 2}
   m_sharedMaterial: {fileID: 2695282038110586608, guid: d047c999c765b444984926c201df687a,
     type: 2}
-  m_fontSharedMaterials: []
+  m_fontSharedMaterials:
+  - {fileID: 2695282038110586608, guid: d047c999c765b444984926c201df687a, type: 2}
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
@@ -11848,6 +11855,11 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
+    - target: {fileID: 8314775901040716414, guid: 5c9613bde4285104d914b1ba614ec29a,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
     - target: {fileID: 8771889716720024987, guid: 5c9613bde4285104d914b1ba614ec29a,
         type: 3}
       propertyPath: m_StaticEditorFlags
@@ -44481,7 +44493,7 @@ Terrain:
   m_DrawTreesAndFoliage: 1
   m_StaticShadowCaster: 0
   m_ReflectionProbeUsage: 1
-  m_MaterialTemplate: {fileID: 10652, guid: 0000000000000000f000000000000000, type: 0}
+  m_MaterialTemplate: {fileID: 2100000, guid: 594ea882c5a793440b60ff72d896021e, type: 2}
   m_BakeLightProbesForTrees: 1
   m_PreserveTreePrototypeLayers: 0
   m_DeringLightProbesForTrees: 1
@@ -62121,6 +62133,11 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
+    - target: {fileID: 8314775901040716414, guid: 5c9613bde4285104d914b1ba614ec29a,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
     - target: {fileID: 8771889716720024987, guid: 5c9613bde4285104d914b1ba614ec29a,
         type: 3}
       propertyPath: m_StaticEditorFlags
@@ -70796,7 +70813,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 40, y: 27}
+    m_SensorSize: {x: 1, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -75134,6 +75151,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8314775901040716414, guid: 5c9613bde4285104d914b1ba614ec29a,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5c9613bde4285104d914b1ba614ec29a, type: 3}
 --- !u!1001 &2906585741105620279

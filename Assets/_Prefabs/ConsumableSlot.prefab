@@ -396,3 +396,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: 2107119286395076702}
   removeButton: {fileID: 9206222421513631996}
+  itemImage: {fileID: 0}
+  itemDescription: {fileID: 0}

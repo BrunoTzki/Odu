@@ -68,6 +68,7 @@ MonoBehaviour:
   _patrolVision: {fileID: 4838596953886085265}
   _rigidbody: {fileID: 4838596953886085264}
   _bodyCollider: {fileID: 4838596954432716043}
+  _attackCollider: {fileID: 0}
   _movimentoDePatrulha: {fileID: 11400000, guid: 71bd980c7c4b3114cbc37b255ab3c5c8,
     type: 2}
   _ataque: {fileID: 11400000, guid: 0753e43d865310d4bb853821c6cdc4f5, type: 2}
@@ -145,7 +146,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
