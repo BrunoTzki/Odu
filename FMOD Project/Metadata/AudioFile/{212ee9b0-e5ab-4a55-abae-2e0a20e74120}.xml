@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{212ee9b0-e5ab-4a55-abae-2e0a20e74120}">
+		<property name="assetPath">
+			<value>BEAT DE PISADINHA - USO LIVRE #34 (Dj Lean) (320 kbps).mp3</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>159.86938775510205</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{7b05097d-e3ce-4856-a597-9a5d1b7e6e55}</destination>
+		</relationship>
+	</object>
+</objects>

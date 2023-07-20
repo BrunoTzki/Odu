@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{572b1ce1-2077-425a-a382-6d5fee911fdf}">
+		<property name="assetPath">
+			<value>Propane Torch.wav</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>1</value>
+		</property>
+		<property name="length">
+			<value>35.800166666666669</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{7b05097d-e3ce-4856-a597-9a5d1b7e6e55}</destination>
+		</relationship>
+	</object>
+</objects>
