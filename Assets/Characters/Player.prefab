@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6625807263748969895}
   m_Layer: 0
   m_Name: Body
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -207,8 +207,9 @@ GameObject:
   - component: {fileID: 573460480482563907}
   - component: {fileID: 5413872528485462393}
   - component: {fileID: 7691140238264887577}
-  - component: {fileID: 5639472824060419971}
-  - component: {fileID: 1589107744}
+  - component: {fileID: 1589107746}
+  - component: {fileID: 1589107757}
+  - component: {fileID: 1589107758}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -321,7 +322,7 @@ MonoBehaviour:
   stepHeight: 0.5
   stepSmooth: 0.1
   bodyCollider: {fileID: 6625807263748969895}
---- !u!114 &5639472824060419971
+--- !u!114 &1589107746
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -330,11 +331,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 4477803715109076276}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 86c6556701af9e04380698b89f691b6e, type: 3}
+  m_Script: {fileID: 11500000, guid: bbb3801c00791684893f1fdaf46f8860, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attenuationObject: {fileID: 0}
---- !u!114 &1589107744
+  araFill: {fileID: 0}
+  araEfx: {fileID: 0}
+  maxAra: 100
+  currentAra: 0
+  takeDamage: {fileID: 1589107757}
+--- !u!114 &1589107757
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -343,10 +348,57 @@ MonoBehaviour:
   m_GameObject: {fileID: 4477803715109076276}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 86c6556701af9e04380698b89f691b6e, type: 3}
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attenuationObject: {fileID: 0}
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: 1102010376
+      Data2: 1129538247
+      Data3: -1058258038
+      Data4: -1331214073
+    Path: event:/SFX/Player/Hit
+  Event: 
+  PlayEvent: 0
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
+--- !u!114 &1589107758
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4477803715109076276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: -1352381180
+      Data2: 1335598492
+      Data3: -1878124885
+      Data4: -1683270341
+    Path: "event:/BG/\xC1gua/Campo de Futebol"
+  Event: 
+  PlayEvent: 1
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!1001 &2213544021218643309
 PrefabInstance:
   m_ObjectHideFlags: 0
