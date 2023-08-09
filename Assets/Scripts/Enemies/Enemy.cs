@@ -13,7 +13,7 @@ namespace Enemies
         [SerializeField] protected PatrolVision _patrolVision;
         [SerializeField] protected Rigidbody _rigidbody;
         [SerializeField] protected Collider _bodyCollider;
-        [SerializeField] protected Collider _attackCollider;
+        [SerializeField] protected GameObject _attackCollider;
 
         [Header("Comportamentos")]
         [SerializeField] protected MovementBehaviour _movimentoDePatrulha;
@@ -101,6 +101,7 @@ namespace Enemies
             
             _ataque.SetData(_rigidbody, _bodyCollider, _attackCollider, player);
             StartAttack();
+
         }
         
         protected virtual void Spawn()
@@ -114,7 +115,7 @@ namespace Enemies
         protected virtual void StartAttack()
         {
             _currentBehaviour = CurrentBehaviour.Attack;
-            
+
             _ataque.Initiate();
         }
         

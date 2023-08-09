@@ -1,4 +1,5 @@
 using BehaviourSystem;
+using FMODUnity;
 using UnityEngine;
 
 namespace Combat
@@ -7,11 +8,12 @@ namespace Combat
     {
         protected Rigidbody _rigidbody;
         protected Collider _bodyCollider;
-        protected Collider _attackCollider;
+        protected GameObject _attackCollider;
+        protected StudioEventEmitter _rushSFX;
         protected Transform _target;
         protected Vector3 _targetPosition;
 
-        public virtual void SetData(Rigidbody rigidBody, Collider bodyCollider, Collider attackCollider, Transform target = null)
+        public virtual void SetData(Rigidbody rigidBody, Collider bodyCollider, GameObject attackCollider, Transform target = null)
         {
             _rigidbody = rigidBody;
             _bodyCollider = bodyCollider;

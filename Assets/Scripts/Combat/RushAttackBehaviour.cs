@@ -76,7 +76,7 @@ namespace Combat
                 return;
 
             _bodyCollider.enabled = true;
-            _attackCollider.enabled = false;
+            _attackCollider.SetActive(true);
             _isRushing = false;
 
             if (_descansaAposAvanco)
@@ -145,7 +145,8 @@ namespace Combat
         private void StartRush()
         {
             _bodyCollider.enabled = false;
-            _attackCollider.enabled = true;
+            _attackCollider.SetActive(true);
+
 
             _rigidbody.rotation = Quaternion.LookRotation(_currentDirection);
 
@@ -159,7 +160,7 @@ namespace Combat
         private void Rush()
         {
             _bodyCollider.enabled = false;
-            _attackCollider.enabled = true;
+            _attackCollider.SetActive(true);
 
             var movementDirection = (_targetPosition - _rigidbody.transform.position).normalized;
             var distanceToTarget = GetTargetDistance();
@@ -172,7 +173,7 @@ namespace Combat
         private void ChasePlayer()
         {
             _bodyCollider.enabled = true;
-            _attackCollider.enabled = false;
+            _attackCollider.SetActive(false);
             var movementDirection = (_playerTransform.position - _rigidbody.transform.position).normalized;
             _rigidbody.velocity = movementDirection * _velocidadeBaseDeAvanco;
         }
@@ -193,7 +194,7 @@ namespace Combat
         public override void Terminate()
         {
             _bodyCollider.enabled = true;
-            _attackCollider.enabled = false;
+            _attackCollider.SetActive(false);
             base.Terminate();
         }
     }
