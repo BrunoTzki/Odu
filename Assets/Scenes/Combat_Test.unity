@@ -338,6 +338,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1201143739, guid: bf53edb0c2d71d645a4f4190d7d5521e, type: 3}
+      propertyPath: _rotationSmoothTime
+      value: 0.06
+      objectReference: {fileID: 0}
     - target: {fileID: 3854468074509456755, guid: bf53edb0c2d71d645a4f4190d7d5521e,
         type: 3}
       propertyPath: m_Name

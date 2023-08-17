@@ -12,6 +12,8 @@ public abstract class PlayerBaseState
     protected PlayerStateMachine Ctx { get { return _ctx; }}
     protected PlayerStateFactory Factory { get { return _factory; }}
 
+    
+
     public PlayerBaseState(PlayerStateMachine currentContext, PlayerStateFactory playerStateFactory){
         _ctx = currentContext;
         _factory = playerStateFactory;
@@ -55,5 +57,9 @@ public abstract class PlayerBaseState
     protected void SetSubState(PlayerBaseState newSubState){
         _currentSubState = newSubState;
         newSubState.SetSuperState(this);
+    }
+
+    public void PrintActiveStates(){
+        Debug.Log("Active root state: " + this.ToString() + "\nActive sub state: " + _currentSubState.ToString());
     }
 }

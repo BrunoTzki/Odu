@@ -48,8 +48,8 @@ public class GameInput : MonoBehaviour
         return _jump;
     }
 
-    public bool IsSprinting(){
-        _sprint = _playerInputActions.Main.Sprint.triggered;
+    public bool IsDashing(){
+        _sprint = _playerInputActions.Main.Dash.triggered;
         return _sprint;
     }
 

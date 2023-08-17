@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerStateMachine : MonoBehaviour
 {
-        [Header("Player")]
+        [Header("Movement")]
         [Tooltip("Move speed of the character in m/s")]
         [SerializeField] private float _moveSpeed = 5.335f;
         public float MoveSpeed {get { return _moveSpeed; }}
@@ -12,33 +12,41 @@ public class PlayerStateMachine : MonoBehaviour
         [Tooltip("How fast the character turns to face movement direction")]
         [Range(0.0f, 0.3f)]
         [SerializeField] private float _rotationSmoothTime = 0.12f;
+        public float RotationSmoothTime { get { return _rotationSmoothTime;}}
 
         [Tooltip("Acceleration and deceleration")]
         [SerializeField] private float _speedChangeRate = 10.0f;
+        public float SpeedChangeRate { get { return _speedChangeRate;}}
 
         [SerializeField] private AudioClip LandingAudioClip;
         [SerializeField] private AudioClip[] FootstepAudioClips;
         [Range(0, 1)] 
         [SerializeField] private float _footstepAudioVolume = 0.5f;
 
+
         [Space(10)]
+        [Header("Jump")]
         [Tooltip("The height the player can jump")]
         [SerializeField] private float _jumpHeight = 1.2f;
         public float JumpHeight {get { return _jumpHeight; }}
 
-        [Tooltip("The character uses its own gravity value. The engine default is -9.81f")]
-        [SerializeField] private float _gravity = -15.0f;
-        public float Gravity {get { return _gravity; }}
-
-        [Space(10)]
         [Tooltip("Time required to pass before being able to jump again. Set to 0f to instantly jump again")]
         [SerializeField] private float _jumpTimeout = 0.50f;
         public float JumpTimeout {get { return _jumpTimeout; }}
+
+
+        [Space(10)]
+        [Header("Falling")]
+        [Tooltip("The character uses its own gravity value. The engine default is -9.81f")]
+        [SerializeField] private float _gravity = -15.0f;
+        public float Gravity {get { return _gravity; }}
 
         [Tooltip("Time required to pass before entering the fall state. Useful for walking down stairs")]
         [SerializeField] private float _fallTimeout = 0.15f;
         public float FallTimeout {get { return _fallTimeout; }}
 
+
+        [Space(10)]
         [Header("Player Grounded")]
         [Tooltip("If the character is grounded or not. Not part of the CharacterController built in grounded check")]
         [SerializeField] private bool _grounded = true;
@@ -54,24 +62,53 @@ public class PlayerStateMachine : MonoBehaviour
         [SerializeField] private LayerMask GroundLayers;
 
 
+        [Space(10)]
+        [Header("Dashing")]
+        [SerializeField] private float _dashSpeed = 20f;
+        public float DashSpeed {get { return _dashSpeed;}}
+
+        [SerializeField] private float _dashTime = 0.25f;
+        public float DashTime {get { return _dashTime;}}
+
+        [SerializeField] private float _dashTimeout = 0.5f;
+        public float DashTimeout {get { return _dashTimeout;}}
+
+
+        [Space(10)]
+        [Header("Combat")]
+        [SerializeField] private BaseToolSO _currentTool;
+
+
+
         // player
         private float _speed;
+        public float Speed {get { return _speed;} set { _speed = value; } }
         private float _animationBlend;
+        public float AnimationBlend {get { return _animationBlend;} set { _animationBlend = value; } }
         private float _targetRotation = 0.0f;
+        public float TargetRotation {get { return _targetRotation;} set { _targetRotation = value; } }
         private float _rotationVelocity;
         private float _verticalVelocity;
         public float VerticalVelocity {get {return _verticalVelocity;} set {_verticalVelocity = value;}}
         private float _terminalVelocity = 53.0f;
         public float TerminalVelocity {get { return _terminalVelocity; }}
         private Vector3 _targetDirection;
+        public Vector3 TargetDirection {get { return _targetDirection;} set { _targetDirection = value;}}
         private float _targetSpeed;
         public float TargetSpeed {get { return _targetSpeed; } set {_targetSpeed = value; }}
+
+        private CharacterController _controller;
+        public CharacterController Controller {get {return _controller;}}
+        private Transform _mainCamera;
+        public Transform MainCamera {get {return _mainCamera;}}
 
         // timeout deltatime
         private float _jumpTimeoutDelta;
         public float JumpTimeoutDelta {get { return _jumpTimeoutDelta; } set {_jumpTimeoutDelta = value; }}
         private float _fallTimeoutDelta;
         public float FallTimeoutDelta {get { return _fallTimeoutDelta; } set {_fallTimeoutDelta = value; }}
+        private float _dashTimeoutDelta;
+        public float DashTimeoutDelta {get { return _dashTimeoutDelta; } set {_dashTimeoutDelta = value;}}
 
         // animation IDs
         private int _animIDSpeed;
@@ -82,11 +119,11 @@ public class PlayerStateMachine : MonoBehaviour
         private int _animIDFreeFall;
         public int AnimIDFreeFall {get { return _animIDFreeFall; }}
         private int _animIDMotionSpeed;
+        private int _animIDDash;
+        public int AnimIDDash {get { return _animIDDash; }}
 
         private Animator _animator;
         public Animator Animator {get { return _animator; }}
-        private CharacterController _controller;
-        private Transform _mainCamera;
 
         private bool _hasAnimator;
         public bool HasAnimator {get { return _hasAnimator; }}
@@ -120,20 +157,24 @@ public class PlayerStateMachine : MonoBehaviour
             // reset our timeouts on start
             _jumpTimeoutDelta = _jumpTimeout;
             _fallTimeoutDelta = _fallTimeout;
+            _dashTimeoutDelta = _dashTimeout;
 
             _targetDirection = Quaternion.Euler(0.0f, _targetRotation, 0.0f) * Vector3.forward;
         }
 
-        private void Update() {
-            Debug.Log(_currentState.ToString());
+        private void Update() {            
+            _currentState.PrintActiveStates();
+
             HandleGravity();
             GroundedCheck();
+            
+            HandleTimeouts();
 
             _currentState.UpdateStates();
 
             // move the player
-            //_controller.Move(_targetDirection.normalized * (_speed * Time.deltaTime) + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
-            HandleMove();
+            _controller.Move(_targetDirection.normalized * (_speed * Time.deltaTime) + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
+            //HandleMove();
         }
 
         private void AssignAnimationIDs()
@@ -143,15 +184,14 @@ public class PlayerStateMachine : MonoBehaviour
             _animIDJump = Animator.StringToHash("Jump");
             _animIDFreeFall = Animator.StringToHash("FreeFall");
             _animIDMotionSpeed = Animator.StringToHash("MotionSpeed");
+            _animIDDash = Animator.StringToHash("Dash");
         }
 
         private void GroundedCheck()
         {
             // set sphere position, with offset
-            Vector3 spherePosition = new Vector3(transform.position.x, transform.position.y - _groundedOffset,
-                transform.position.z);
-            _grounded = Physics.CheckSphere(spherePosition, _groundedRadius, GroundLayers,
-                QueryTriggerInteraction.Ignore);
+            Vector3 spherePosition = new Vector3(transform.position.x, transform.position.y - _groundedOffset, transform.position.z);
+            _grounded = Physics.CheckSphere(spherePosition, _groundedRadius, GroundLayers, QueryTriggerInteraction.Ignore);
 
             // update animator if using character
             if (_hasAnimator)
@@ -168,57 +208,9 @@ public class PlayerStateMachine : MonoBehaviour
             }
         }
 
-        private void HandleMove(){
-
-            // a reference to the players current horizontal velocity
-            float currentHorizontalSpeed = new Vector3(_controller.velocity.x, 0.0f, _controller.velocity.z).magnitude;
-
-            float speedOffset = 0.1f;
-            float inputMagnitude = GameInput.Instance.GetMove().magnitude;
-
-            // accelerate or decelerate to target speed
-            if (currentHorizontalSpeed < _targetSpeed - speedOffset || currentHorizontalSpeed > _targetSpeed + speedOffset)
-            {
-                // creates curved result rather than a linear one giving a more organic speed change
-                // note T in Lerp is clamped, so we don't need to clamp our speed
-                _speed = Mathf.Lerp(currentHorizontalSpeed, _targetSpeed * inputMagnitude, Time.deltaTime * _speedChangeRate);
-
-                // round speed to 3 decimal places
-                _speed = Mathf.Round(_speed * 1000f) / 1000f;
-            }
-            else
-            {
-                _speed = _targetSpeed;
-            }
-
-            _animationBlend = Mathf.Lerp(_animationBlend, _targetSpeed, Time.deltaTime * _speedChangeRate);
-            if (_animationBlend < 0.01f) _animationBlend = 0f;
-
-            // normalise input direction
-            Vector3 inputDirection = new Vector3(GameInput.Instance.GetMove().x, 0.0f, GameInput.Instance.GetMove().y).normalized;
-
-            // note: Vector2's != operator uses approximation so is not floating point error prone, and is cheaper than magnitude
-            // if there is a move input rotate player when the player is moving
-            if (GameInput.Instance.GetMove() != Vector2.zero)
-            {
-                _targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg + _mainCamera.eulerAngles.y;
-                float rotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, _targetRotation, ref _rotationVelocity, _rotationSmoothTime);
-
-                // rotate to face input direction relative to camera position
-                transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
-            }
-
-
-            _targetDirection = Quaternion.Euler(0.0f, _targetRotation, 0.0f) * Vector3.forward;
-
-            // move the player
-            _controller.Move(_targetDirection.normalized * (_speed * Time.deltaTime) + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
-
-            // update animator if using character
-            if (_hasAnimator)
-            {
-                _animator.SetFloat(_animIDSpeed, _speed);
-                //_animator.SetFloat(_animIDMotionSpeed, inputMagnitude);
+        private void HandleTimeouts(){
+            if (_dashTimeoutDelta >= 0.0f){
+                _dashTimeoutDelta -= Time.deltaTime;
             }
         }
 
@@ -231,8 +223,10 @@ public class PlayerStateMachine : MonoBehaviour
             else Gizmos.color = transparentRed;
 
             // when selected, draw a gizmo in the position of, and matching radius of, the grounded collider
-            Gizmos.DrawSphere(
-                new Vector3(transform.position.x, transform.position.y - _groundedOffset, transform.position.z), _groundedRadius);
+            Gizmos.DrawSphere(new Vector3(transform.position.x, transform.position.y - _groundedOffset, transform.position.z), _groundedRadius);
+
+            //Draw Target Direction
+            Gizmos.DrawRay(new Vector3(transform.position.x, transform.position.y + 1, transform.position.z), _targetDirection.normalized);
         }
 
         private void OnFootstep(AnimationEvent animationEvent)

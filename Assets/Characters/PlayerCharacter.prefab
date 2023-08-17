@@ -1047,8 +1047,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: a3194b8bbc96ef84fab1f98f4b7dae3e, type: 3}
   _footstepAudioVolume: 0.5
   _jumpHeight: 1.2
-  _gravity: -15
   _jumpTimeout: 0.5
+  _gravity: -15
   _fallTimeout: 0.15
   _grounded: 1
   _groundedOffset: -0.14
@@ -1056,6 +1056,9 @@ MonoBehaviour:
   GroundLayers:
     serializedVersion: 2
     m_Bits: 1
+  _dashSpeed: 20
+  _dashTime: 0.25
+  _dashTimeout: 0.5
 --- !u!1 &3959978943297151279
 GameObject:
   m_ObjectHideFlags: 0
