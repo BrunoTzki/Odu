@@ -14,7 +14,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &561910125255500810
 Transform:
@@ -146,6 +146,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: janela
+      objectReference: {fileID: 0}
+    - target: {fileID: 5573192676917861051, guid: 6233960632815d247865610dc291b31e,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6233960632815d247865610dc291b31e, type: 3}
@@ -777,6 +782,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: tecido
       objectReference: {fileID: 0}
+    - target: {fileID: 4392185397181311832, guid: aeb6f1e313f30ae44b6375f45a6a3bf2,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aeb6f1e313f30ae44b6375f45a6a3bf2, type: 3}
 --- !u!4 &8539750580257056816 stripped
@@ -796,6 +806,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: porta metal (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1325895288711025542, guid: c7cc9f5d931b5b141807c361bdb52cb3,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 1814200859778369852, guid: c7cc9f5d931b5b141807c361bdb52cb3,
         type: 3}
@@ -2783,6 +2798,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: grade vertical
       objectReference: {fileID: 0}
+    - target: {fileID: 4318039886067210762, guid: 4094c4e386cc7714da6080d92352c979,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4094c4e386cc7714da6080d92352c979, type: 3}
 --- !u!4 &4883513018717965961 stripped
@@ -3452,6 +3472,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: telhado plano (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7032667172638878186, guid: 8bb4c24e114cf34418e5d8d8e00e4f13,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8bb4c24e114cf34418e5d8d8e00e4f13, type: 3}
@@ -4455,6 +4480,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: telhado plano
+      objectReference: {fileID: 0}
+    - target: {fileID: 7032667172638878186, guid: 8bb4c24e114cf34418e5d8d8e00e4f13,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8bb4c24e114cf34418e5d8d8e00e4f13, type: 3}
@@ -8073,6 +8103,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: janela 4 folhas
       objectReference: {fileID: 0}
+    - target: {fileID: 721157560840534776, guid: 70c9aa4085f588142aaeaf29e5425de0,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 1225802130985786157, guid: 70c9aa4085f588142aaeaf29e5425de0,
         type: 3}
       propertyPath: m_Materials.Array.data[1]
@@ -9837,6 +9872,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: porta metal
       objectReference: {fileID: 0}
+    - target: {fileID: 1325895288711025542, guid: c7cc9f5d931b5b141807c361bdb52cb3,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 1814200859778369852, guid: c7cc9f5d931b5b141807c361bdb52cb3,
         type: 3}
       propertyPath: m_RootOrder
@@ -11111,6 +11151,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: telhado plano (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7032667172638878186, guid: 8bb4c24e114cf34418e5d8d8e00e4f13,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8bb4c24e114cf34418e5d8d8e00e4f13, type: 3}

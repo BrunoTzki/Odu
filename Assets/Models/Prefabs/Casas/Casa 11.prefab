@@ -19,7 +19,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1958630436575167463
 Transform:
@@ -358,7 +358,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &6631037815710254894
 Transform:
@@ -395,6 +395,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: caixa dagua
+      objectReference: {fileID: 0}
+    - target: {fileID: 2653101227256375351, guid: b4c2311283c3ee546a4117cc33a29f13,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 3430165318489911949, guid: b4c2311283c3ee546a4117cc33a29f13,
         type: 3}
@@ -525,6 +530,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: janela
+      objectReference: {fileID: 0}
+    - target: {fileID: 5573192676917861051, guid: 6233960632815d247865610dc291b31e,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6233960632815d247865610dc291b31e, type: 3}
@@ -1241,6 +1251,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: telhado plano (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 7032667172638878186, guid: 8bb4c24e114cf34418e5d8d8e00e4f13,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8bb4c24e114cf34418e5d8d8e00e4f13, type: 3}
 --- !u!4 &5513415879342190488 stripped
@@ -1260,6 +1275,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: porta metal
+      objectReference: {fileID: 0}
+    - target: {fileID: 1325895288711025542, guid: c7cc9f5d931b5b141807c361bdb52cb3,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 1814200859778369852, guid: c7cc9f5d931b5b141807c361bdb52cb3,
         type: 3}
@@ -1345,6 +1365,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: porta metal (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1325895288711025542, guid: c7cc9f5d931b5b141807c361bdb52cb3,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 1814200859778369852, guid: c7cc9f5d931b5b141807c361bdb52cb3,
         type: 3}
@@ -2065,6 +2090,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: telhado plano
+      objectReference: {fileID: 0}
+    - target: {fileID: 7032667172638878186, guid: 8bb4c24e114cf34418e5d8d8e00e4f13,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8bb4c24e114cf34418e5d8d8e00e4f13, type: 3}
@@ -3285,6 +3315,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: basculante
+      objectReference: {fileID: 0}
+    - target: {fileID: 4310400618368441782, guid: ef3797b0279883a408d4072830296088,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ef3797b0279883a408d4072830296088, type: 3}

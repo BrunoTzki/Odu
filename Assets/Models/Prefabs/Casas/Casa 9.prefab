@@ -14,7 +14,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &2906585739644007631
 Transform:
@@ -114,6 +114,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: janela 2 folhas
+      objectReference: {fileID: 0}
+    - target: {fileID: 3154239746789153428, guid: c9a7e22e2e397eb4ebd80b75699aebbd,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c9a7e22e2e397eb4ebd80b75699aebbd, type: 3}
@@ -2007,6 +2012,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: telhado ondulado
       objectReference: {fileID: 0}
+    - target: {fileID: 6638620229259196818, guid: 38bb8a8ac51b9d64494ec1336e03f721,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 38bb8a8ac51b9d64494ec1336e03f721, type: 3}
 --- !u!4 &9168353663650256891 stripped
@@ -3406,6 +3416,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: telhado plano
+      objectReference: {fileID: 0}
+    - target: {fileID: 7032667172638878186, guid: 8bb4c24e114cf34418e5d8d8e00e4f13,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8bb4c24e114cf34418e5d8d8e00e4f13, type: 3}
@@ -5875,6 +5890,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7032667172638878186, guid: 8bb4c24e114cf34418e5d8d8e00e4f13,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8bb4c24e114cf34418e5d8d8e00e4f13, type: 3}
 --- !u!4 &8005054269883073946 stripped
@@ -6278,6 +6298,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: basculante
       objectReference: {fileID: 0}
+    - target: {fileID: 4310400618368441782, guid: ef3797b0279883a408d4072830296088,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ef3797b0279883a408d4072830296088, type: 3}
 --- !u!4 &412060871028146083 stripped
@@ -6297,6 +6322,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: porta metal
+      objectReference: {fileID: 0}
+    - target: {fileID: 1325895288711025542, guid: c7cc9f5d931b5b141807c361bdb52cb3,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 1814200859778369852, guid: c7cc9f5d931b5b141807c361bdb52cb3,
         type: 3}
