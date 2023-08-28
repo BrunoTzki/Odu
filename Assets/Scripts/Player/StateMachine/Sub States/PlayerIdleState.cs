@@ -9,7 +9,9 @@ public class PlayerIdleState : PlayerBaseState
 
     public override void CheckSwitchStates()
     {
-        if(GameInput.Instance.GetMove() != Vector2.zero){
+        if(GameInput.Instance.IsAttacking() == true){
+            SwitchState(Factory.Attack());
+        } else if(GameInput.Instance.GetMove() != Vector2.zero){
             SwitchState(Factory.Move());
         } else if(GameInput.Instance.IsDashing() && Ctx.DashTimeoutDelta <= 0.0f && Ctx.Grounded){
             SwitchState(Factory.Dash());
@@ -18,7 +20,7 @@ public class PlayerIdleState : PlayerBaseState
 
     public override void EnterState()
     {
-        Ctx.TargetSpeed = 0.0f;
+        //Ctx.TargetSpeed = 0.0f;
         Ctx.TargetRotation = Ctx.transform.eulerAngles.y;
     }
 

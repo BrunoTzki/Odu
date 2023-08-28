@@ -59,7 +59,7 @@ public abstract class PlayerBaseState
         newSubState.SetSuperState(this);
     }
 
-    public void PrintActiveStates(){
-        Debug.Log("Active root state: " + this.ToString() + "\nActive sub state: " + _currentSubState.ToString());
+    public string GetActiveStates(){
+        return this.ToString() + "\n" + _currentSubState.ToString();
     }
 }

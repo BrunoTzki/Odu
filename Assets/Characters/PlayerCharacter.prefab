@@ -1031,7 +1031,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _moveSpeed: 5.335
-  _rotationSmoothTime: 0.12
+  _rotationSmoothTime: 0.06
   _speedChangeRate: 10
   LandingAudioClip: {fileID: 8300000, guid: ff697d3070687ce4583faa0561a145a2, type: 3}
   FootstepAudioClips:
@@ -1059,6 +1059,11 @@ MonoBehaviour:
   _dashSpeed: 20
   _dashTime: 0.25
   _dashTimeout: 0.5
+  _currentTool: {fileID: 11400000, guid: 11aa24f9e91e2a14a884d9e3844f3fe2, type: 2}
+  _comboTimerDelay: 1
+  _comboWaitTime: 0.5
+  _attackWaitTime: 0.5
+  _animEndPct: 0.9
 --- !u!1 &3959978943297151279
 GameObject:
   m_ObjectHideFlags: 0

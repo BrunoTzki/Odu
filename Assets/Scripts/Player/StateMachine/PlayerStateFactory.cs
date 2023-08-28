@@ -8,7 +8,8 @@ enum PlayerStates {
     Grounded,
     Jump,
     Fall,
-    Dash
+    Dash,
+    Attack
 }
 public class PlayerStateFactory 
 {
@@ -23,6 +24,7 @@ public class PlayerStateFactory
         _states[PlayerStates.Jump] = new PlayerJumpState(_context, this);
         _states[PlayerStates.Fall] = new PlayerFallState(_context, this);
         _states[PlayerStates.Dash] = new PlayerDashState(_context, this);
+        _states[PlayerStates.Attack] = new PlayerAttackState(_context, this);
     }
 
     public PlayerBaseState Idle(){
@@ -43,5 +45,9 @@ public class PlayerStateFactory
 
     public PlayerBaseState Dash(){
         return _states[PlayerStates.Dash];
+    }
+
+    public PlayerBaseState Attack(){
+        return _states[PlayerStates.Attack];
     }
 }

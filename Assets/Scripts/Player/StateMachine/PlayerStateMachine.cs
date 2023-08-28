@@ -64,19 +64,40 @@ public class PlayerStateMachine : MonoBehaviour
 
         [Space(10)]
         [Header("Dashing")]
+        [Tooltip("Speed the player has while dashing")]
         [SerializeField] private float _dashSpeed = 20f;
         public float DashSpeed {get { return _dashSpeed;}}
 
+        [Tooltip("How long the dash will last")]
         [SerializeField] private float _dashTime = 0.25f;
         public float DashTime {get { return _dashTime;}}
 
+        [Tooltip("How long the player has to wait before they can dash again")]
         [SerializeField] private float _dashTimeout = 0.5f;
         public float DashTimeout {get { return _dashTimeout;}}
 
 
         [Space(10)]
         [Header("Combat")]
+        [Tooltip("The current active combat tool the player is using")]
         [SerializeField] private BaseToolSO _currentTool;
+        public BaseToolSO CurrentTool {get { return _currentTool; }}
+
+        [Tooltip("How long to wait for the combo to end after the last attack")]
+        [SerializeField] private float _comboTimerDelay = 1f;
+        public float ComboTimerDelay {get { return _comboTimerDelay; }}
+
+        [Tooltip("How long to wait before a new combo can be started")]
+        [SerializeField] private float _comboWaitTime = 0.5f;
+        public float ComboWaitTime {get { return _comboWaitTime; }}
+
+        [Tooltip("How long to wait before each attack")]
+        [SerializeField] private float _attackWaitTime = 0.2f;
+        public float AttackWaitTime {get { return _attackWaitTime; }}
+
+        [Tooltip("The percentage which the attack animation will be considered close to finished")]
+        [SerializeField, Range(0.5f, 0.99f)] private float _animEndPct = 0.9f;
+        public float AnimEndPct {get { return _animEndPct; }}
 
 
 
@@ -102,6 +123,17 @@ public class PlayerStateMachine : MonoBehaviour
         private Transform _mainCamera;
         public Transform MainCamera {get {return _mainCamera;}}
 
+        private float _lastClickedTime;
+        public float LastClickedTime {get {return _lastClickedTime;} set {_lastClickedTime = value;}}
+        private float _lastComboEnd;
+        public float LastComboEnd {get {return _lastComboEnd; } set {_lastComboEnd = value;}}
+        private int _comboCounter;
+        public int ComboCounter {get {return _comboCounter; } set {_comboCounter = value;}}
+        private float _comboTimer;
+        public float ComboTimer {get {return _comboTimer;} set {_comboTimer = value;}}
+        private bool _comboRunning = false;
+        public bool ComboRunning {get {return _comboRunning;} set {_comboRunning = value;}}
+
         // timeout deltatime
         private float _jumpTimeoutDelta;
         public float JumpTimeoutDelta {get { return _jumpTimeoutDelta; } set {_jumpTimeoutDelta = value; }}
@@ -121,6 +153,8 @@ public class PlayerStateMachine : MonoBehaviour
         private int _animIDMotionSpeed;
         private int _animIDDash;
         public int AnimIDDash {get { return _animIDDash; }}
+        private int _animIDAttack;
+        public int AnimIDAttack {get { return _animIDAttack;}}
 
         private Animator _animator;
         public Animator Animator {get { return _animator; }}
@@ -146,11 +180,8 @@ public class PlayerStateMachine : MonoBehaviour
             _currentState = _states.Grounded();
             _currentState.EnterState();
             
-            //_cinemachineTargetYaw = CinemachineCameraTarget.transform.rotation.eulerAngles.y;
-            
             _hasAnimator = TryGetComponent(out _animator);
             _controller = GetComponent<CharacterController>();
-            //_input = GetComponent<StarterAssetsInputs>();
 
             AssignAnimationIDs();
 
@@ -158,12 +189,13 @@ public class PlayerStateMachine : MonoBehaviour
             _jumpTimeoutDelta = _jumpTimeout;
             _fallTimeoutDelta = _fallTimeout;
             _dashTimeoutDelta = _dashTimeout;
+            _comboTimer = _comboTimerDelay;
 
             _targetDirection = Quaternion.Euler(0.0f, _targetRotation, 0.0f) * Vector3.forward;
         }
 
         private void Update() {            
-            _currentState.PrintActiveStates();
+            //Debug.Log(_currentState.GetActiveStates());
 
             HandleGravity();
             GroundedCheck();
@@ -185,6 +217,7 @@ public class PlayerStateMachine : MonoBehaviour
             _animIDFreeFall = Animator.StringToHash("FreeFall");
             _animIDMotionSpeed = Animator.StringToHash("MotionSpeed");
             _animIDDash = Animator.StringToHash("Dash");
+            _animIDAttack = Animator.StringToHash("Attack");
         }
 
         private void GroundedCheck()
@@ -211,6 +244,9 @@ public class PlayerStateMachine : MonoBehaviour
         private void HandleTimeouts(){
             if (_dashTimeoutDelta >= 0.0f){
                 _dashTimeoutDelta -= Time.deltaTime;
+            }
+            if(_comboRunning && _comboTimer > 0f){
+                _comboTimer -= Time.deltaTime;
             }
         }
 

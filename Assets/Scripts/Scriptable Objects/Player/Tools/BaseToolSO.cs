@@ -4,6 +4,8 @@ using UnityEngine;
 
 public abstract class BaseToolSO : ScriptableObject
 {
+    public abstract List<AttackSO> Combo { get; }
+
     public abstract void Attack();
 
     public abstract void Skill1();
