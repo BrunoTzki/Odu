@@ -61,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2962433936365701271, guid: 09923061a2e96174aaf08d2438ff5f8b, type: 3}
+  - {fileID: 2100000, guid: c14837d0d0f02214ebcca881a178333d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -93,6 +93,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7669480297542425483}
   - component: {fileID: 3228701674207130034}
+  - component: {fileID: 8191127079318107725}
   m_Layer: 0
   m_Name: Point Light
   m_TagString: Untagged
@@ -177,6 +178,26 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &8191127079318107725
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 351385147336708705}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 1
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
 --- !u!1 &557385533028970274
 GameObject:
   m_ObjectHideFlags: 0
@@ -585,7 +606,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: c990917fca2047c4fa3cebd6bd210090, type: 2}
-  - {fileID: -9198003363845024776, guid: 09923061a2e96174aaf08d2438ff5f8b, type: 3}
+  - {fileID: 2100000, guid: d193a60ad0b5ad040887729c856fe07d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -752,7 +773,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -8896051167825165466, guid: 09923061a2e96174aaf08d2438ff5f8b, type: 3}
+  - {fileID: 2100000, guid: c990917fca2047c4fa3cebd6bd210090, type: 2}
   - {fileID: 2100000, guid: 55473adbdd3305b40820f0ca50313084, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -1060,7 +1081,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 6400982930719488310, guid: 09923061a2e96174aaf08d2438ff5f8b, type: 3}
+  - {fileID: 2100000, guid: 8488ec3d29ab58e4bb1e7675f1555f9f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
