@@ -7,15 +7,22 @@ public class PlayerIdleState : PlayerBaseState
     public PlayerIdleState(PlayerStateMachine currentContext, PlayerStateFactory playerStateFactory)
     : base (currentContext,playerStateFactory){}
 
-    public override void CheckSwitchStates()
+    public override bool CheckSwitchStates()
     {
+        //Debug.Log("Idle Update");
         if(GameInput.Instance.IsAttacking() == true){
-            SwitchState(Factory.Attack());
-        } else if(GameInput.Instance.GetMove() != Vector2.zero){
+            //Debug.Log("Idle to Attack");
+            SwitchState(Factory.StartAttack());
+            return true;
+        } if(GameInput.Instance.GetMove() != Vector2.zero){
             SwitchState(Factory.Move());
-        } else if(GameInput.Instance.IsDashing() && Ctx.DashTimeoutDelta <= 0.0f && Ctx.Grounded){
+            return true;
+        } if(GameInput.Instance.IsDashing() && Ctx.DashTimeoutDelta <= 0.0f && Ctx.Grounded){
             SwitchState(Factory.Dash());
+            return true;
         }
+
+        return false;
     }
 
     public override void EnterState()
@@ -34,9 +41,9 @@ public class PlayerIdleState : PlayerBaseState
 
     public override void UpdateState()
     {
-        HandleMove();
+        if(CheckSwitchStates()) return;
 
-        CheckSwitchStates();
+        HandleMove();
     }
 
     void HandleMove(){

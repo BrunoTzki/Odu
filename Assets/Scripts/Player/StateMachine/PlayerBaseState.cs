@@ -25,7 +25,7 @@ public abstract class PlayerBaseState
 
     public abstract void ExitState();
 
-    public abstract void CheckSwitchStates();
+    public abstract bool CheckSwitchStates();
 
     public abstract void InitializeSubState();
 

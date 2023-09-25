@@ -9,13 +9,17 @@ public class PlayerDashState : PlayerBaseState
 
     private float _dashTimeDelta;
 
-    public override void CheckSwitchStates()
+    public override bool CheckSwitchStates()
     {
         if(_dashTimeDelta <= 0 && GameInput.Instance.GetMove() == Vector2.zero){
             SwitchState(Factory.Idle());
+            return true;
         } else if (_dashTimeDelta <= 0 && GameInput.Instance.GetMove() != Vector2.zero){
             SwitchState(Factory.Move());
+            return true;
         }
+
+        return false;
     }
 
     public override void EnterState()
@@ -44,9 +48,11 @@ public class PlayerDashState : PlayerBaseState
 
     public override void UpdateState()
     {
+        if(CheckSwitchStates()) return;
+
         DashTimer();
 
-        CheckSwitchStates();
+        //CheckSwitchStates();
     }
 
     private void DashTimer(){

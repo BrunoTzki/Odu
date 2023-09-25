@@ -9,11 +9,13 @@ public class PlayerFallState : PlayerBaseState
         IsRootState = true;
     }
 
-    public override void CheckSwitchStates()
+    public override bool CheckSwitchStates()
     {
         if(Ctx.Grounded){
             SwitchState(Factory.Grounded());
+            return true;
         }
+        return false;
     }
 
     public override void EnterState()
@@ -40,9 +42,11 @@ public class PlayerFallState : PlayerBaseState
 
     public override void UpdateState()
     {
+        if(CheckSwitchStates()) return;
+
         HandleFall();
         
-        CheckSwitchStates();
+        //CheckSwitchStates();
     }
 
     private void HandleFall(){

@@ -11,17 +11,21 @@ public class PlayerAttackState : PlayerBaseState
     private bool _hasAttacked;
     private bool _comboEnded;
 
-    public override void CheckSwitchStates()
+    public override bool CheckSwitchStates()
     {
         if(_canAttack){
             if(GameInput.Instance.GetMove() != Vector2.zero){
                 SwitchState(Factory.Move());
-            } else if(GameInput.Instance.IsDashing() && Ctx.DashTimeoutDelta <= 0.0f && Ctx.Grounded){
+                return true;
+            } if(GameInput.Instance.IsDashing() && Ctx.DashTimeoutDelta <= 0.0f && Ctx.Grounded){
                 SwitchState(Factory.Dash());
-            } else if (_comboEnded){
+                return true;
+            } if (_comboEnded){
                 SwitchState(Factory.Idle());
+                return true;
             }
         }
+        return false;
     }
 
     public override void EnterState()
@@ -29,17 +33,19 @@ public class PlayerAttackState : PlayerBaseState
         Ctx.Speed = 0.0f;
         Ctx.Animator.SetFloat(Ctx.AnimIDSpeed, Ctx.Speed);
 
+        //initialize booleans
         _canAttack = true;
         _hasAttacked = false;
         _comboEnded = false;
         Ctx.Animator.applyRootMotion = true;
 
-        
-        if(Ctx.ComboTimer <= 0){
+        //reset combo
+        if(Ctx.ComboTimeout <= 0){
             Ctx.ComboCounter = 0;
         }
-
-        Ctx.ComboTimer = Ctx.ComboTimerDelay;
+        
+        //restart combo timer
+        Ctx.ComboTimeout = Ctx.ComboTimerDelay;
 
         Attack();
     }
@@ -55,6 +61,9 @@ public class PlayerAttackState : PlayerBaseState
 
     public override void UpdateState()
     {
+        if(CheckSwitchStates()){
+            return;
+        }
         if(GameInput.Instance.IsAttacking()){
             Attack();
         }
@@ -65,7 +74,7 @@ public class PlayerAttackState : PlayerBaseState
 
         HandleComboTimer();
 
-        CheckSwitchStates();
+        
     }
 
     void Attack(){
@@ -118,7 +127,7 @@ public class PlayerAttackState : PlayerBaseState
     }
 
     void HandleComboTimer(){
-        if (Ctx.ComboTimer <= 0){
+        if (Ctx.ComboTimeout <= 0){
             EndCombo();
 
             Ctx.ComboRunning = false;
@@ -127,7 +136,7 @@ public class PlayerAttackState : PlayerBaseState
 
     void DelayCombo(float seconds){
         Ctx.ComboRunning = true;
-        Ctx.ComboTimer = seconds;
+        Ctx.ComboTimeout = seconds;
     }
 
     void CancelDelayCombo(){

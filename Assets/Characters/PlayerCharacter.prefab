@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &502387852
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 502387853}
+  m_Layer: 3
+  m_Name: HandHolder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &502387853
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 502387852}
+  m_LocalRotation: {x: -0.91564584, y: 0.051999766, z: 0.23769994, w: 0.31998047}
+  m_LocalPosition: {x: -0.039, y: -0.02, z: -0.021}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6535074959502046257}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: -142.36, y: 30.51, z: -4.12}
 --- !u!1 &7172710940544110
 GameObject:
   m_ObjectHideFlags: 0
@@ -1064,6 +1095,7 @@ MonoBehaviour:
   _comboWaitTime: 0.5
   _attackWaitTime: 0.5
   _animEndPct: 0.9
+  weaponHolder: {fileID: 502387853}
 --- !u!1 &3959978943297151279
 GameObject:
   m_ObjectHideFlags: 0
@@ -1316,6 +1348,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3106243343440083369}
+  - {fileID: 502387853}
   m_Father: {fileID: 9189110855240088337}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

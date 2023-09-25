@@ -22,7 +22,7 @@ namespace Combat
 
         private float _timer;
         private bool _wannaRush;
-        private bool _isRushing;
+        //private bool _isRushing;
         private bool _isDone;
         private bool _isChasing;
         private Transform _playerTransform;
@@ -36,7 +36,7 @@ namespace Combat
 
             _timer = 0;
             _wannaRush = false;
-            _isRushing = false;
+            //_isRushing = false;
             _isDone = false;
             _isChasing = false;
             _playerTransform = null;
@@ -77,7 +77,7 @@ namespace Combat
 
             _bodyCollider.enabled = true;
             _attackCollider.SetActive(true);
-            _isRushing = false;
+            //_isRushing = false;
 
             if (_descansaAposAvanco)
             {
@@ -154,7 +154,7 @@ namespace Combat
 
             _targetPosition = _rigidbody.transform.position + movementDirection * _distanciaDeAvanco;
 
-            _isRushing = true;
+            //_isRushing = true;
         }
 
         private void Rush()

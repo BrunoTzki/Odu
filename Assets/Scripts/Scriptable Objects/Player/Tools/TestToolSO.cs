@@ -8,9 +8,8 @@ public class TestToolSO : BaseToolSO
     [SerializeField] private List<AttackSO> _combo;
     public override List<AttackSO> Combo => _combo;
 
-    public override void Attack()
-    {
-    }
+    [SerializeField] private GameObject _toolWeapon;
+    public override GameObject ToolWeapon => _toolWeapon;
 
     public override void Skill1()
     {

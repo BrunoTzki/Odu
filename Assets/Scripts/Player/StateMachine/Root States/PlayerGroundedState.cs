@@ -9,13 +9,17 @@ public class PlayerGroundedState : PlayerBaseState
         IsRootState = true;
     }
 
-    public override void CheckSwitchStates()
+    public override bool CheckSwitchStates()
     {
         if(GameInput.Instance.IsJumping() && Ctx.JumpTimeoutDelta <= 0.0f){
             SwitchState(Factory.Jump());
+            return true;
         } else if (!Ctx.Grounded){
             SwitchState(Factory.Fall());
+            return true;
         }
+
+        return false;
     }
 
     public override void EnterState()
@@ -47,6 +51,8 @@ public class PlayerGroundedState : PlayerBaseState
 
     public override void UpdateState()
     {
+        if(CheckSwitchStates()) return;
+
         // jump timeout
         if (Ctx.JumpTimeoutDelta >= 0.0f)
         {
@@ -58,6 +64,6 @@ public class PlayerGroundedState : PlayerBaseState
             Ctx.VerticalVelocity = -2f;
         }
 
-        CheckSwitchStates();
+        //CheckSwitchStates();
     }
 }

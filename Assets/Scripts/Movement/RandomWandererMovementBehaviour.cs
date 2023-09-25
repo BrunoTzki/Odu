@@ -17,7 +17,7 @@ namespace Movement
         [SerializeField] private bool _descansa;
         [SerializeField] private float _tempoDeDescanso;
 
-        private bool _isResting;
+        //private bool _isResting;
         private bool _isChasing;
         private Transform _playerTransform;
         private Quaternion _currentRotation;
@@ -26,7 +26,7 @@ namespace Movement
         {
             base.Initiate();
 
-            _isResting = false;
+            //_isResting = false;
             _isChasing = false;
             _playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
             SetNewTarget();
@@ -78,13 +78,13 @@ namespace Movement
 
         private IEnumerator RestCoroutine()
         {
-            _isResting = true;
+            //_isResting = true;
             _rigidbody.velocity = Vector3.zero;
 
             yield return new WaitForSeconds(_tempoDeDescanso);
 
             SetNewTarget();
-            _isResting = false;
+            //_isResting = false;
         }
 
         private void SetNewTarget()

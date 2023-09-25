@@ -9,11 +9,14 @@ public class PlayerJumpState : PlayerBaseState
         IsRootState = true;
     }
 
-    public override void CheckSwitchStates()
+    public override bool CheckSwitchStates()
     {
         if(Ctx.VerticalVelocity < 0.0f){
             SwitchState(Factory.Fall());
+            return true;
         }
+
+        return false;
     }
 
     public override void EnterState()
@@ -44,7 +47,8 @@ public class PlayerJumpState : PlayerBaseState
 
     public override void UpdateState()
     {
-        CheckSwitchStates();
+        if(CheckSwitchStates()) return;
+        //CheckSwitchStates();
     }
 
     private void HandleJump(){

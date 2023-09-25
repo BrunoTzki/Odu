@@ -9,20 +9,25 @@ public class PlayerMoveState : PlayerBaseState
 
     private float _rotationVelocity;
 
-    public override void CheckSwitchStates()
+    public override bool CheckSwitchStates()
     {
-        if(GameInput.Instance.IsAttacking() == true){
-            SwitchState(Factory.Attack());
-        } else if(GameInput.Instance.GetMove() == Vector2.zero){
+        if(GameInput.Instance.IsAttacking() == true && !Ctx.Animator.GetCurrentAnimatorStateInfo(0).IsTag("Attack")){
+            SwitchState(Factory.StartAttack());
+            return true;
+        } if(GameInput.Instance.GetMove() == Vector2.zero){
             SwitchState(Factory.Idle());
-        } else if(GameInput.Instance.IsDashing() && Ctx.DashTimeoutDelta <= 0.0f && Ctx.Grounded){
+            return true;
+        } if(GameInput.Instance.IsDashing() && Ctx.DashTimeoutDelta <= 0.0f && Ctx.Grounded){
             SwitchState(Factory.Dash());
+            return true;
         }
+        return false;
     }
 
     public override void EnterState()
     {
         Ctx.TargetSpeed = Ctx.MoveSpeed;
+        
     }
 
     public override void ExitState()
@@ -36,10 +41,11 @@ public class PlayerMoveState : PlayerBaseState
 
     public override void UpdateState()
     {
+        if(CheckSwitchStates()) return;
         //Ctx.HandleMove();
         HandleMove();
 
-        CheckSwitchStates();
+        //CheckSwitchStates();
     }
 
     void HandleMove(){

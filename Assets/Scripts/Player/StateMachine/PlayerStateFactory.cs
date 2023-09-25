@@ -9,7 +9,9 @@ enum PlayerStates {
     Jump,
     Fall,
     Dash,
-    Attack
+    Attack,
+    StartAttack,
+    EndAttack
 }
 public class PlayerStateFactory 
 {
@@ -25,6 +27,8 @@ public class PlayerStateFactory
         _states[PlayerStates.Fall] = new PlayerFallState(_context, this);
         _states[PlayerStates.Dash] = new PlayerDashState(_context, this);
         _states[PlayerStates.Attack] = new PlayerAttackState(_context, this);
+        _states[PlayerStates.StartAttack] = new PlayerStartAttackState(_context, this);
+        _states[PlayerStates.EndAttack] = new PlayerEndAttackState(_context, this);
     }
 
     public PlayerBaseState Idle(){
@@ -49,5 +53,12 @@ public class PlayerStateFactory
 
     public PlayerBaseState Attack(){
         return _states[PlayerStates.Attack];
+    }
+
+    public PlayerBaseState StartAttack(){
+        return _states[PlayerStates.StartAttack];
+    }
+    public PlayerBaseState EndAttack(){
+        return _states[PlayerStates.EndAttack];
     }
 }

@@ -6,7 +6,7 @@ public abstract class BaseToolSO : ScriptableObject
 {
     public abstract List<AttackSO> Combo { get; }
 
-    public abstract void Attack();
+    public abstract GameObject ToolWeapon { get; }
 
     public abstract void Skill1();
 
