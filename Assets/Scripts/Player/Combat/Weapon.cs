@@ -32,7 +32,7 @@ public class Weapon : MonoBehaviour
                 Debug.Log(p);
                 
 
-                TextSpawner.Instance.SpawnPopupDamage(_attackDamage,col.transform.position);
+                TextSpawner.Instance?.SpawnPopupDamage(_attackDamage,col.transform.position);
             }
         }
             
