@@ -33,12 +33,21 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Sprint",
-                    "type": "PassThrough",
+                    "name": "Dash",
+                    "type": "Value",
                     "id": "a57487c7-a540-4664-ab7f-c6f9069ec519",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Attack",
+                    "type": "Button",
+                    "id": "e84915b6-91fc-4c58-a4ca-777b08bf0d50",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Tap",
                     "initialStateCheck": false
                 }
             ],
@@ -160,7 +169,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Sprint",
+                    "action": "Dash",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -171,7 +180,29 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Sprint",
+                    "action": "Dash",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a9ca17b3-31f8-41b6-8e18-24e532d5690b",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Attack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "611f5aad-d9f3-44c4-991a-d67ed0486d9e",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Attack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

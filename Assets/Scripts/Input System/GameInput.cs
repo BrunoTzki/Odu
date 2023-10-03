@@ -14,7 +14,8 @@ public class GameInput : MonoBehaviour
     [Header("Character Input Values")]
     [SerializeField] private Vector2 _move;
     [SerializeField] private bool _jump;
-	[SerializeField] private bool _sprint;
+	[SerializeField] private bool _dash;
+    [SerializeField] private bool _attack;
 
     [Header("Mouse Cursor Settings")]
     [SerializeField] private bool _cursorLocked = true;
@@ -48,9 +49,14 @@ public class GameInput : MonoBehaviour
         return _jump;
     }
 
-    public bool IsSprinting(){
-        _sprint = _playerInputActions.Main.Sprint.triggered;
-        return _sprint;
+    public bool IsDashing(){
+        _dash = _playerInputActions.Main.Dash.triggered;
+        return _dash;
+    }
+
+    public bool IsAttacking(){
+        _attack = _playerInputActions.Main.Attack.triggered;
+        return _attack;
     }
 
     private void OnApplicationFocus(bool hasFocus){
