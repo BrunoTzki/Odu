@@ -27,6 +27,12 @@ public class Weapon : MonoBehaviour
             if(!_attackedObjects.Contains(hit)){
                 _attackedObjects.Add(hit);
                 hit.Damage(_attackDamage);
+
+                Vector3 p = col.transform.position;
+                Debug.Log(p);
+                
+
+                TextSpawner.Instance.SpawnPopupDamage(_attackDamage,col.transform.position);
             }
         }
             

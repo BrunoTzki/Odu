@@ -6,8 +6,8 @@ public class TestDummy : MonoBehaviour, IDamageable
 {
     public void Damage(int damage)
     {
-        //Debug.Log("Hit: " + damage);
+        Debug.Log("Hit: " + damage);
 
-        TextSpawner.Instance.SpawnPopupDamage(damage,transform.position);
+        //TextSpawner.Instance.SpawnPopupDamage(damage,transform.position);
     }
 }

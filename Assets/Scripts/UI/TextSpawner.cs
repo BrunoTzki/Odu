@@ -19,6 +19,7 @@ public class TextSpawner : MonoBehaviour
     }
 
     public void SpawnPopupDamage(int damage, Vector3 startPosition){
+        Debug.Log("Spawn Position: " + startPosition);
         DamagePopup popup;
         popup = Instantiate(_textPopUp,startPosition,camRotation).GetComponent<DamagePopup>();
         popup.Setup(damage);

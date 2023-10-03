@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class EnemyHealth : MonoBehaviour
+public class EnemyHealth : MonoBehaviour, IDamageable
 {
     [Header("Vida do Inimigo")]
 
@@ -22,8 +22,9 @@ public class EnemyHealth : MonoBehaviour
         _currentHealth = _maxHealth;
     }
 
-    public void TakeDamage(int damage)
+    public void Damage(int damage)
     {
+        Debug.Log("Damage");
         int amount = -damage;
         SetHealth(amount);
     }
