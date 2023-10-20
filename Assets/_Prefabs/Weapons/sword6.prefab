@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4522576121036696573}
   - component: {fileID: 7815598075663974031}
   - component: {fileID: 7367201257120693378}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: sword6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -147,6 +147,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 180
       objectReference: {fileID: 0}
+    - target: {fileID: 7894602306222861965, guid: 787620cc18f89604fbf2fb6e67ed641b,
+        type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 8545926752514586868, guid: 787620cc18f89604fbf2fb6e67ed641b,
         type: 3}
       propertyPath: m_Name
@@ -247,6 +252,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 4157996830170995297, guid: 2f321d0b1421e1b4da15244076c9bf3c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4216556246735152637, guid: 2f321d0b1421e1b4da15244076c9bf3c,
         type: 3}
