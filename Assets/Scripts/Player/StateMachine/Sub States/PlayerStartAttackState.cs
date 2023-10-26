@@ -26,7 +26,7 @@ public class PlayerStartAttackState : PlayerBaseState
         Ctx.Animator.applyRootMotion = true;
 
         //Ctx.Animator.SetFloat(Ctx.AnimIDSpeed, Ctx.Speed);
-        Ctx.ComboRunning = false;
+        Ctx.ComboTimerRunning = false;
 
         Attack();
     }
@@ -49,6 +49,7 @@ public class PlayerStartAttackState : PlayerBaseState
         //Debug.Log("Attack");
         Ctx.Animator.runtimeAnimatorController = Ctx.CurrentTool.Combo[Ctx.ComboCounter].AnimatorOV;
         Ctx.Animator.SetTrigger(Ctx.AnimIDAttack);
+        //Ctx.Animator.SetBool(Ctx.AnimIDAttack,true);
 
         Ctx.CurrentWeapon.Activate(Ctx.CurrentTool.Combo[Ctx.ComboCounter].Damage);
 

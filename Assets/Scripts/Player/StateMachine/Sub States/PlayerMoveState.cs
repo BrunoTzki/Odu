@@ -12,8 +12,10 @@ public class PlayerMoveState : PlayerBaseState
     public override bool CheckSwitchStates()
     {
         if(GameInput.Instance.IsAttacking() == true && !Ctx.Animator.GetCurrentAnimatorStateInfo(0).IsTag("Attack")){
-            SwitchState(Factory.StartAttack());
-            return true;
+            if(Time.time - Ctx.LastComboEnd > Ctx.ComboWaitTime){
+                SwitchState(Factory.StartAttack());
+                return true;
+            }
         } if(GameInput.Instance.GetMove() == Vector2.zero){
             SwitchState(Factory.Idle());
             return true;

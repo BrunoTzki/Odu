@@ -55,6 +55,7 @@ public class GameInput : MonoBehaviour
     }
 
     public bool IsAttacking(){
+        //_attack = _playerInputActions.Main.Attack.inProgress;
         _attack = _playerInputActions.Main.Attack.triggered;
         return _attack;
     }

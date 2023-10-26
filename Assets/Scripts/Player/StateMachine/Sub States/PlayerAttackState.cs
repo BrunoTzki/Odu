@@ -130,16 +130,16 @@ public class PlayerAttackState : PlayerBaseState
         if (Ctx.ComboTimeout <= 0){
             EndCombo();
 
-            Ctx.ComboRunning = false;
+            Ctx.ComboTimerRunning = false;
         }
     }
 
     void DelayCombo(float seconds){
-        Ctx.ComboRunning = true;
+        Ctx.ComboTimerRunning = true;
         Ctx.ComboTimeout = seconds;
     }
 
     void CancelDelayCombo(){
-        Ctx.ComboRunning = false;
+        Ctx.ComboTimerRunning = false;
     }
 }

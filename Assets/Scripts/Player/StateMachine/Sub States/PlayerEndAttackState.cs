@@ -10,14 +10,23 @@ public class PlayerEndAttackState : PlayerBaseState
     public override bool CheckSwitchStates()
     {
         //Debug.Log("End Attack Update");
-        if(GameInput.Instance.GetMove() != Vector2.zero){
+        if (GameInput.Instance.IsAttacking()){
+            if(Ctx.ComboCounter != 0){
+                SwitchState(Factory.StartAttack());
+                return true;
+            }
+
+        } /*if(GameInput.Instance.GetMove() != Vector2.zero){
             SwitchState(Factory.Move());
             //Ctx.Animator.Play("Idle Walk Run Blend", 0, 0);
             return true;
-        } if(GameInput.Instance.IsDashing() && Ctx.DashTimeoutDelta <= 0.0f && Ctx.Grounded){
+
+        } */
+        if(GameInput.Instance.IsDashing() && Ctx.DashTimeoutDelta <= 0.0f && Ctx.Grounded){
             SwitchState(Factory.Dash());
             return true;
-        } if(Ctx.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.97f){ //animation ended
+
+        } if(Ctx.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.99f){ //animation ended
             //Debug.Log("End Attack to Idle");
             SwitchState(Factory.Idle());
             return true;
@@ -32,12 +41,19 @@ public class PlayerEndAttackState : PlayerBaseState
 
     public override void ExitState()
     {
-        Ctx.ComboRunning = true;
+        Ctx.ComboTimerRunning = true;
         Ctx.ComboTimeout = Ctx.ComboTimerDelay;
+
+        if(Ctx.ComboCounter == 0){
+            //Debug.Log("Last Attack");
+            Ctx.LastComboEnd = Time.time;
+        }
 
         Ctx.CurrentWeapon.Deactivate();
 
         Ctx.Animator.applyRootMotion = false;
+
+        //Ctx.Animator.SetBool(Ctx.AnimIDAttack,false);
     }
 
     public override void InitializeSubState()

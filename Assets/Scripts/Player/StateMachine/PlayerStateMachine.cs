@@ -92,10 +92,6 @@ public class PlayerStateMachine : MonoBehaviour
     [SerializeField] private float _comboWaitTime = 0.5f;
     public float ComboWaitTime {get { return _comboWaitTime; }}
 
-    [Tooltip("How long to wait before each attack")]
-    [SerializeField] private float _attackWaitTime = 0.2f;
-    public float AttackWaitTime {get { return _attackWaitTime; }}
-
     [Tooltip("The percentage which the attack animation will be considered close to finished")]
     [SerializeField, Range(0.5f, 0.99f)] private float _animEndPct = 0.9f;
     public float AnimEndPct {get { return _animEndPct; }}
@@ -135,14 +131,12 @@ public class PlayerStateMachine : MonoBehaviour
     #endregion
 
     #region Combat Variables
-    private float _lastClickedTime;
-    public float LastClickedTime {get {return _lastClickedTime;} set {_lastClickedTime = value;}}
     private float _lastComboEnd;
     public float LastComboEnd {get {return _lastComboEnd; } set {_lastComboEnd = value;}}
     private int _comboCounter;
     public int ComboCounter {get {return _comboCounter; } set {_comboCounter = value;}}
-    private bool _comboRunning = false;
-    public bool ComboRunning {get {return _comboRunning;} set {_comboRunning = value;}}
+    private bool _comboTimerRunning = false;
+    public bool ComboTimerRunning {get {return _comboTimerRunning;} set {_comboTimerRunning = value;}}
     private Weapon _currentWeapon;
     public Weapon CurrentWeapon {get { return _currentWeapon; }}
 
@@ -228,7 +222,8 @@ public class PlayerStateMachine : MonoBehaviour
             Debug.Log(_animator.GetCurrentAnimatorStateInfo(0).normalizedTime);
         }*/
 
-        //Debug.Log(_animator.GetAnimatorTransitionInfo(0).normalizedTime);
+        //Debug.Log("Attack input: " + GameInput.Instance.IsAttacking());
+        //Debug.Log("Dash input: " + GameInput.Instance.IsDashing());
 
         HandleGravity();
         GroundedCheck();
@@ -281,10 +276,10 @@ public class PlayerStateMachine : MonoBehaviour
         }
 
         //combat
-        if(_comboRunning && _comboTimeout > 0f){
+        if(_comboTimerRunning && _comboTimeout > 0f){
             _comboTimeout -= Time.deltaTime;
             if(_comboTimeout <= 0f){
-                _comboRunning = false;
+                _comboTimerRunning = false;
                 _comboCounter = 0;
             }
         }

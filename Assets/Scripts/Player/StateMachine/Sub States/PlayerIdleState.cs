@@ -9,11 +9,12 @@ public class PlayerIdleState : PlayerBaseState
 
     public override bool CheckSwitchStates()
     {
-        //Debug.Log("Idle Update");
-        if(GameInput.Instance.IsAttacking() == true){
-            //Debug.Log("Idle to Attack");
-            SwitchState(Factory.StartAttack());
-            return true;
+        Debug.Log("Idle Update");
+        if(GameInput.Instance.IsAttacking()){
+            if(Time.time - Ctx.LastComboEnd > Ctx.ComboWaitTime){
+                SwitchState(Factory.StartAttack());
+                return true;
+            }
         } if(GameInput.Instance.GetMove() != Vector2.zero){
             SwitchState(Factory.Move());
             return true;
