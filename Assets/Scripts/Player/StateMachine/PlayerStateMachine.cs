@@ -19,8 +19,8 @@ public class PlayerStateMachine : MonoBehaviour
     [SerializeField] private float _speedChangeRate = 10.0f;
     public float SpeedChangeRate { get { return _speedChangeRate;}}
 
-    [SerializeField] private AudioClip LandingAudioClip;
-    [SerializeField] private AudioClip[] FootstepAudioClips;
+    [SerializeField] private AudioClip _landingAudioClip;
+    [SerializeField] private AudioClip[] _footstepAudioClips;
     [Range(0, 1)] 
     [SerializeField] private float _footstepAudioVolume = 0.5f;
 
@@ -60,7 +60,7 @@ public class PlayerStateMachine : MonoBehaviour
     [SerializeField] private float _groundedRadius = 0.28f;
 
     [Tooltip("What layers the character uses as ground")]
-    [SerializeField] private LayerMask GroundLayers;
+    [SerializeField] private LayerMask _groundLayers;
 
 
     [Space(10)]
@@ -97,7 +97,19 @@ public class PlayerStateMachine : MonoBehaviour
     public float AnimEndPct {get { return _animEndPct; }}
 
     [Tooltip("Gameobject to attach the weapon")]
-    [SerializeField] private Transform weaponHolder;
+    [SerializeField] private Transform _weaponHolder;
+
+    [Tooltip("The distance the player can reach the enemy")]
+    [SerializeField] private float _reachDistance = 3f;
+    public float ReachDistance { get { return _reachDistance; }}
+
+    [Tooltip("Time it takes for the player to reach the enemy")]
+    [SerializeField] private float _reachDuration = .5f;
+    public float ReachDuration { get { return _reachDuration; }}
+
+    [Tooltip("Radius of the sphere cast for front detection")]
+    [SerializeField] private float _frontCastRadius = 2f;
+    public float FrontCastRadius { get { return _frontCastRadius; }}
 
     #endregion
 
@@ -105,7 +117,7 @@ public class PlayerStateMachine : MonoBehaviour
     private float _speed;
     public float Speed {get { return _speed;} set { _speed = value; } }
     private float _animationBlend;
-    public float AnimationBlend {get { return _animationBlend;} set { _animationBlend = value; } }
+    public float AnimationBlend {get { return _animationBlend;} set { _animationBlend = value; } }//not used
     private float _targetRotation = 0.0f;
     public float TargetRotation {get { return _targetRotation;} set { _targetRotation = value; } }
     private float _rotationVelocity;
@@ -153,8 +165,8 @@ public class PlayerStateMachine : MonoBehaviour
     private float _dashTimeoutDelta;
     public float DashTimeoutDelta {get { return _dashTimeoutDelta; } set {_dashTimeoutDelta = value;}}
     // Combat
-    private float _comboTimeout;
-    public float ComboTimeout {get {return _comboTimeout;} set {_comboTimeout = value;}}
+    private float _comboTimeoutDelta;
+    public float ComboTimeoutDelta {get {return _comboTimeoutDelta;} set {_comboTimeoutDelta = value;}}
 
     #endregion
 
@@ -192,7 +204,7 @@ public class PlayerStateMachine : MonoBehaviour
 
         _mainCamera = Camera.main.transform;
 
-        _currentWeapon = Instantiate(_currentTool.ToolWeapon, weaponHolder).GetComponent<Weapon>();
+        _currentWeapon = Instantiate(_currentTool.ToolWeapon, _weaponHolder).GetComponent<Weapon>();
         _currentWeapon.Deactivate();
     }
 
@@ -210,7 +222,7 @@ public class PlayerStateMachine : MonoBehaviour
         _jumpTimeoutDelta = _jumpTimeout;
         _fallTimeoutDelta = _fallTimeout;
         _dashTimeoutDelta = _dashTimeout;
-        _comboTimeout = _comboTimerDelay;
+        _comboTimeoutDelta = _comboTimerDelay;
 
         _targetDirection = Quaternion.Euler(0.0f, _targetRotation, 0.0f) * Vector3.forward;
     }
@@ -230,7 +242,15 @@ public class PlayerStateMachine : MonoBehaviour
         
         HandleTimeouts();
 
+
+        //Vector3 inputDirection = new Vector3(GameInput.Instance.GetMove().x, 0.0f, GameInput.Instance.GetMove().y).normalized;
+        //_targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg + _mainCamera.eulerAngles.y;
+
+        //_targetDirection = Quaternion.Euler(0.0f, _targetRotation, 0.0f) * Vector3.forward;
+
         _currentState.UpdateStates();
+
+
 
         // move the player
         _controller.Move(_targetDirection.normalized * (_speed * Time.deltaTime) + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
@@ -252,7 +272,7 @@ public class PlayerStateMachine : MonoBehaviour
     {
         // set sphere position, with offset
         Vector3 spherePosition = new Vector3(transform.position.x, transform.position.y - _groundedOffset, transform.position.z);
-        _grounded = Physics.CheckSphere(spherePosition, _groundedRadius, GroundLayers, QueryTriggerInteraction.Ignore);
+        _grounded = Physics.CheckSphere(spherePosition, _groundedRadius, _groundLayers, QueryTriggerInteraction.Ignore);
 
         // update animator if using character
         if (_hasAnimator)
@@ -276,9 +296,9 @@ public class PlayerStateMachine : MonoBehaviour
         }
 
         //combat
-        if(_comboTimerRunning && _comboTimeout > 0f){
-            _comboTimeout -= Time.deltaTime;
-            if(_comboTimeout <= 0f){
+        if(_comboTimerRunning && _comboTimeoutDelta > 0f){
+            _comboTimeoutDelta -= Time.deltaTime;
+            if(_comboTimeoutDelta <= 0f){
                 _comboTimerRunning = false;
                 _comboCounter = 0;
             }
@@ -287,27 +307,45 @@ public class PlayerStateMachine : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
-        Color transparentGreen = new Color(0.0f, 1.0f, 0.0f, 0.35f);
-        Color transparentRed = new Color(1.0f, 0.0f, 0.0f, 0.35f);
-
-        if (_grounded) Gizmos.color = transparentGreen;
-        else Gizmos.color = transparentRed;
+        if (_grounded) Gizmos.color = Color.green;
+        else Gizmos.color = Color.red;
 
         // when selected, draw a gizmo in the position of, and matching radius of, the grounded collider
         Gizmos.DrawSphere(new Vector3(transform.position.x, transform.position.y - _groundedOffset, transform.position.z), _groundedRadius);
 
+        Gizmos.color = Color.blue;
         //Draw Target Direction
-        Gizmos.DrawRay(new Vector3(transform.position.x, transform.position.y + 1, transform.position.z), _targetDirection.normalized);
+        Gizmos.DrawRay(new Vector3(transform.position.x, transform.position.y + 0.3f, transform.position.z), _targetDirection.normalized);
+
+
+        if(GameInput.Instance.GetMove() == Vector2.zero){
+            Gizmos.DrawWireSphere(transform.position,_reachDistance);
+        } else {
+            bool isHit = Physics.SphereCast(transform.position, _frontCastRadius, _targetDirection, out RaycastHit hit, _reachDistance - _frontCastRadius);
+
+            if(isHit){
+                Gizmos.color = Color.red;
+                Gizmos.DrawRay(new Vector3(transform.position.x, transform.position.y + 1, transform.position.z),_targetDirection.normalized * hit.distance);
+                Gizmos.DrawWireSphere(transform.position + _targetDirection.normalized * hit.distance, _frontCastRadius);
+            } else {
+                Gizmos.color = Color.green;
+                Gizmos.DrawRay(new Vector3(transform.position.x, transform.position.y + 1, transform.position.z), _targetDirection.normalized * _reachDistance);
+            }
+        }
+
+
+        //Vector3 inputDirection = new Vector3(GameInput.Instance.GetMove().x, 0.0f, GameInput.Instance.GetMove().y).normalized;
+        //Gizmos.DrawRay(new Vector3(transform.position.x, transform.position.y, transform.position.z), new Vector3(GameInput.Instance.GetMove().x, 0.0f, GameInput.Instance.GetMove().y).normalized);
     }
 
     private void OnFootstep(AnimationEvent animationEvent)
     {
         if (animationEvent.animatorClipInfo.weight > 0.5f)
         {
-            if (FootstepAudioClips.Length > 0)
+            if (_footstepAudioClips.Length > 0)
             {
-                var index = Random.Range(0, FootstepAudioClips.Length);
-                AudioSource.PlayClipAtPoint(FootstepAudioClips[index], transform.TransformPoint(_controller.center), _footstepAudioVolume);
+                var index = Random.Range(0, _footstepAudioClips.Length);
+                AudioSource.PlayClipAtPoint(_footstepAudioClips[index], transform.TransformPoint(_controller.center), _footstepAudioVolume);
             }
         }
     }
@@ -316,7 +354,7 @@ public class PlayerStateMachine : MonoBehaviour
     {
         if (animationEvent.animatorClipInfo.weight > 0.5f)
         {
-            AudioSource.PlayClipAtPoint(LandingAudioClip, transform.TransformPoint(_controller.center), _footstepAudioVolume);
+            AudioSource.PlayClipAtPoint(_landingAudioClip, transform.TransformPoint(_controller.center), _footstepAudioVolume);
         }
     }
 }

@@ -11,10 +11,10 @@ public class PlayerDashState : PlayerBaseState
 
     public override bool CheckSwitchStates()
     {
-        if(_dashTimeDelta <= 0 && GameInput.Instance.GetMove() == Vector2.zero){
+        if(_dashTimeDelta <= 0f && GameInput.Instance.GetMove() == Vector2.zero){
             SwitchState(Factory.Idle());
             return true;
-        } else if (_dashTimeDelta <= 0 && GameInput.Instance.GetMove() != Vector2.zero){
+        } else if (_dashTimeDelta <= 0f && GameInput.Instance.GetMove() != Vector2.zero){
             SwitchState(Factory.Move());
             return true;
         }

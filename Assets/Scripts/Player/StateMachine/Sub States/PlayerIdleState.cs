@@ -9,7 +9,7 @@ public class PlayerIdleState : PlayerBaseState
 
     public override bool CheckSwitchStates()
     {
-        Debug.Log("Idle Update");
+        //Debug.Log("Idle Update");
         if(GameInput.Instance.IsAttacking()){
             if(Time.time - Ctx.LastComboEnd > Ctx.ComboWaitTime){
                 SwitchState(Factory.StartAttack());
@@ -74,9 +74,6 @@ public class PlayerIdleState : PlayerBaseState
             Ctx.AnimationBlend = 0f;
 
         Ctx.TargetDirection = Quaternion.Euler(0.0f, Ctx.TargetRotation, 0.0f) * Vector3.forward;
-
-        // move the player
-        // _controller.Move(_targetDirection.normalized * (_speed * Time.deltaTime) + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
 
         // update animator if using character
         if (Ctx.HasAnimator)

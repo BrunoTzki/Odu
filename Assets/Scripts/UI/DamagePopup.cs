@@ -6,7 +6,7 @@ using UnityEngine.InputSystem.EnhancedTouch;
 
 public class DamagePopup : MonoBehaviour
 {
-    [SerializeField] private TextMeshPro _textMesh;
+    [SerializeField] private TextMeshProUGUI _textMesh;
     [SerializeField] private float _timer = 1f;
     public static Transform _popUpObj;
 

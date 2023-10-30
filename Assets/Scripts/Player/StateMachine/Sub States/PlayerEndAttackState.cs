@@ -42,7 +42,7 @@ public class PlayerEndAttackState : PlayerBaseState
     public override void ExitState()
     {
         Ctx.ComboTimerRunning = true;
-        Ctx.ComboTimeout = Ctx.ComboTimerDelay;
+        Ctx.ComboTimeoutDelta = Ctx.ComboTimerDelay;
 
         if(Ctx.ComboCounter == 0){
             //Debug.Log("Last Attack");
@@ -51,7 +51,7 @@ public class PlayerEndAttackState : PlayerBaseState
 
         Ctx.CurrentWeapon.Deactivate();
 
-        Ctx.Animator.applyRootMotion = false;
+        //Ctx.Animator.applyRootMotion = false;
 
         //Ctx.Animator.SetBool(Ctx.AnimIDAttack,false);
     }

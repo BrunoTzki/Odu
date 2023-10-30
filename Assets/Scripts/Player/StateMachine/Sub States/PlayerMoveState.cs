@@ -78,20 +78,22 @@ public class PlayerMoveState : PlayerBaseState
 
         // normalise input direction
         Vector3 inputDirection = new Vector3(GameInput.Instance.GetMove().x, 0.0f, GameInput.Instance.GetMove().y).normalized;
+        //Debug.Log(inputDirection);
 
         // note: Vector2's != operator uses approximation so is not floating point error prone, and is cheaper than magnitude
         // if there is a move input rotate player when the player is moving
-        if (GameInput.Instance.GetMove() != Vector2.zero)
-        {
+        
+        //if (GameInput.Instance.GetMove() != Vector2.zero)
+        //{
             Ctx.TargetRotation = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg + Ctx.MainCamera.eulerAngles.y;
             float rotation = Mathf.SmoothDampAngle(Ctx.transform.eulerAngles.y, Ctx.TargetRotation, ref _rotationVelocity, Ctx.RotationSmoothTime);
 
             // rotate to face input direction relative to camera position
             Ctx.transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
-        }
+        //}
 
 
-         Ctx.TargetDirection = Quaternion.Euler(0.0f, Ctx.TargetRotation, 0.0f) * Vector3.forward;
+        Ctx.TargetDirection = Quaternion.Euler(0.0f, Ctx.TargetRotation, 0.0f) * Vector3.forward;
 
         // move the player
         // _controller.Move(_targetDirection.normalized * (_speed * Time.deltaTime) + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
