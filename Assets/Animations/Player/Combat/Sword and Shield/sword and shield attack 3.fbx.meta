@@ -39,8 +39,8 @@ ModelImporter:
       name: sword and shield attack 3
       takeName: mixamo.com
       internalID: 0
-      firstFrame: 0
-      lastFrame: 52
+      firstFrame: 7
+      lastFrame: 38
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

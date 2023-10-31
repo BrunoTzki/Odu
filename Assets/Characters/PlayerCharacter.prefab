@@ -1843,12 +1843,12 @@ CharacterController:
   m_Enabled: 1
   serializedVersion: 2
   m_Height: 1.8
-  m_Radius: 0.28
+  m_Radius: 0.3
   m_SlopeLimit: 45
   m_StepOffset: 0.25
   m_SkinWidth: 0.02
   m_MinMoveDistance: 0
-  m_Center: {x: 0, y: 0.93, z: 0}
+  m_Center: {x: 0, y: 1.1, z: 0}
 --- !u!114 &6457525326540160899
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1958,10 +1958,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _moveSpeed: 5.335
-  _rotationSmoothTime: 0.06
+  _rotationSmoothTime: 0.03
   _speedChangeRate: 10
-  LandingAudioClip: {fileID: 8300000, guid: ff697d3070687ce4583faa0561a145a2, type: 3}
-  FootstepAudioClips:
+  _landingAudioClip: {fileID: 8300000, guid: ff697d3070687ce4583faa0561a145a2, type: 3}
+  _footstepAudioClips:
   - {fileID: 8300000, guid: 72f526a6a9890f643a88e85a61c86c8a, type: 3}
   - {fileID: 8300000, guid: 85016e0f2b01da248b9663dd49a161b0, type: 3}
   - {fileID: 8300000, guid: 186de84b3207156479abe98f4958fed0, type: 3}
@@ -1980,7 +1980,7 @@ MonoBehaviour:
   _grounded: 1
   _groundedOffset: -0.14
   _groundedRadius: 0.28
-  GroundLayers:
+  _groundLayers:
     serializedVersion: 2
     m_Bits: 1
   _dashSpeed: 20
@@ -1989,9 +1989,10 @@ MonoBehaviour:
   _currentTool: {fileID: 11400000, guid: 11aa24f9e91e2a14a884d9e3844f3fe2, type: 2}
   _comboTimerDelay: 0.5
   _comboWaitTime: 0.5
-  _attackWaitTime: 0.5
-  _animEndPct: 0.9
-  weaponHolder: {fileID: 483814300}
+  _animEndPct: 0.8
+  _weaponHolder: {fileID: 483814300}
+  _reachDistance: 3
+  _reachDuration: 0.5
 --- !u!1 &3959978943297151279
 GameObject:
   m_ObjectHideFlags: 0

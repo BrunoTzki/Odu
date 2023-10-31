@@ -40,12 +40,12 @@ public class PlayerAttackState : PlayerBaseState
         Ctx.Animator.applyRootMotion = true;
 
         //reset combo
-        if(Ctx.ComboTimeout <= 0){
+        if(Ctx.ComboTimeoutDelta <= 0){
             Ctx.ComboCounter = 0;
         }
         
         //restart combo timer
-        Ctx.ComboTimeout = Ctx.ComboTimerDelay;
+        Ctx.ComboTimeoutDelta = Ctx.ComboTimerDelay;
 
         Attack();
     }
@@ -127,19 +127,19 @@ public class PlayerAttackState : PlayerBaseState
     }
 
     void HandleComboTimer(){
-        if (Ctx.ComboTimeout <= 0){
+        if (Ctx.ComboTimeoutDelta <= 0){
             EndCombo();
 
-            Ctx.ComboRunning = false;
+            Ctx.ComboTimerRunning = false;
         }
     }
 
     void DelayCombo(float seconds){
-        Ctx.ComboRunning = true;
-        Ctx.ComboTimeout = seconds;
+        Ctx.ComboTimerRunning = true;
+        Ctx.ComboTimeoutDelta = seconds;
     }
 
     void CancelDelayCombo(){
-        Ctx.ComboRunning = false;
+        Ctx.ComboTimerRunning = false;
     }
 }

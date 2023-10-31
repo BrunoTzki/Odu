@@ -11,10 +11,10 @@ public class PlayerDashState : PlayerBaseState
 
     public override bool CheckSwitchStates()
     {
-        if(_dashTimeDelta <= 0 && GameInput.Instance.GetMove() == Vector2.zero){
+        if(_dashTimeDelta <= 0f && GameInput.Instance.GetMove() == Vector2.zero){
             SwitchState(Factory.Idle());
             return true;
-        } else if (_dashTimeDelta <= 0 && GameInput.Instance.GetMove() != Vector2.zero){
+        } else if (_dashTimeDelta <= 0f && GameInput.Instance.GetMove() != Vector2.zero){
             SwitchState(Factory.Move());
             return true;
         }
@@ -24,6 +24,11 @@ public class PlayerDashState : PlayerBaseState
 
     public override void EnterState()
     {
+        if (GameInput.Instance.GetMove() != Vector2.zero){
+            RotateDirection();
+        }
+        
+
         Ctx.Speed = Ctx.DashSpeed;
         _dashTimeDelta = Ctx.DashTime;
 
@@ -58,5 +63,12 @@ public class PlayerDashState : PlayerBaseState
     private void DashTimer(){
         if(_dashTimeDelta >= 0.0f)
             _dashTimeDelta -= Time.deltaTime;
+    }
+
+    void RotateDirection(){
+        Vector3 inputDirection = new Vector3(GameInput.Instance.GetMove().x, 0.0f, GameInput.Instance.GetMove().y).normalized;
+        Ctx.TargetRotation = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg + Ctx.MainCamera.eulerAngles.y;
+        Ctx.transform.rotation = Quaternion.Euler(0.0f, Ctx.TargetRotation, 0.0f);
+        Ctx.TargetDirection = Quaternion.Euler(0.0f, Ctx.TargetRotation, 0.0f) * Vector3.forward;
     }
 }

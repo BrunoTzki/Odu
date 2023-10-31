@@ -19,8 +19,8 @@ public class PlayerStateMachine : MonoBehaviour
     [SerializeField] private float _speedChangeRate = 10.0f;
     public float SpeedChangeRate { get { return _speedChangeRate;}}
 
-    [SerializeField] private AudioClip LandingAudioClip;
-    [SerializeField] private AudioClip[] FootstepAudioClips;
+    [SerializeField] private AudioClip _landingAudioClip;
+    [SerializeField] private AudioClip[] _footstepAudioClips;
     [Range(0, 1)] 
     [SerializeField] private float _footstepAudioVolume = 0.5f;
 
@@ -60,7 +60,7 @@ public class PlayerStateMachine : MonoBehaviour
     [SerializeField] private float _groundedRadius = 0.28f;
 
     [Tooltip("What layers the character uses as ground")]
-    [SerializeField] private LayerMask GroundLayers;
+    [SerializeField] private LayerMask _groundLayers;
 
 
     [Space(10)]
@@ -92,16 +92,20 @@ public class PlayerStateMachine : MonoBehaviour
     [SerializeField] private float _comboWaitTime = 0.5f;
     public float ComboWaitTime {get { return _comboWaitTime; }}
 
-    [Tooltip("How long to wait before each attack")]
-    [SerializeField] private float _attackWaitTime = 0.2f;
-    public float AttackWaitTime {get { return _attackWaitTime; }}
-
     [Tooltip("The percentage which the attack animation will be considered close to finished")]
     [SerializeField, Range(0.5f, 0.99f)] private float _animEndPct = 0.9f;
     public float AnimEndPct {get { return _animEndPct; }}
 
     [Tooltip("Gameobject to attach the weapon")]
-    [SerializeField] private Transform weaponHolder;
+    [SerializeField] private Transform _weaponHolder;
+
+    [Tooltip("The distance the player can reach the enemy")]
+    [SerializeField] private float _reachDistance = 3f;
+    public float ReachDistance { get { return _reachDistance; }}
+
+    [Tooltip("Time it takes for the player to reach the enemy")]
+    [SerializeField] private float _reachDuration = .5f;
+    public float ReachDuration { get { return _reachDuration; }}
 
     #endregion
 
@@ -109,7 +113,7 @@ public class PlayerStateMachine : MonoBehaviour
     private float _speed;
     public float Speed {get { return _speed;} set { _speed = value; } }
     private float _animationBlend;
-    public float AnimationBlend {get { return _animationBlend;} set { _animationBlend = value; } }
+    public float AnimationBlend {get { return _animationBlend;} set { _animationBlend = value; } }//not used
     private float _targetRotation = 0.0f;
     public float TargetRotation {get { return _targetRotation;} set { _targetRotation = value; } }
     private float _rotationVelocity;
@@ -135,14 +139,12 @@ public class PlayerStateMachine : MonoBehaviour
     #endregion
 
     #region Combat Variables
-    private float _lastClickedTime;
-    public float LastClickedTime {get {return _lastClickedTime;} set {_lastClickedTime = value;}}
     private float _lastComboEnd;
     public float LastComboEnd {get {return _lastComboEnd; } set {_lastComboEnd = value;}}
     private int _comboCounter;
     public int ComboCounter {get {return _comboCounter; } set {_comboCounter = value;}}
-    private bool _comboRunning = false;
-    public bool ComboRunning {get {return _comboRunning;} set {_comboRunning = value;}}
+    private bool _comboTimerRunning = false;
+    public bool ComboTimerRunning {get {return _comboTimerRunning;} set {_comboTimerRunning = value;}}
     private Weapon _currentWeapon;
     public Weapon CurrentWeapon {get { return _currentWeapon; }}
 
@@ -159,8 +161,8 @@ public class PlayerStateMachine : MonoBehaviour
     private float _dashTimeoutDelta;
     public float DashTimeoutDelta {get { return _dashTimeoutDelta; } set {_dashTimeoutDelta = value;}}
     // Combat
-    private float _comboTimeout;
-    public float ComboTimeout {get {return _comboTimeout;} set {_comboTimeout = value;}}
+    private float _comboTimeoutDelta;
+    public float ComboTimeoutDelta {get {return _comboTimeoutDelta;} set {_comboTimeoutDelta = value;}}
 
     #endregion
 
@@ -198,7 +200,7 @@ public class PlayerStateMachine : MonoBehaviour
 
         _mainCamera = Camera.main.transform;
 
-        _currentWeapon = Instantiate(_currentTool.ToolWeapon, weaponHolder).GetComponent<Weapon>();
+        _currentWeapon = Instantiate(_currentTool.ToolWeapon, _weaponHolder).GetComponent<Weapon>();
         _currentWeapon.Deactivate();
     }
 
@@ -216,7 +218,7 @@ public class PlayerStateMachine : MonoBehaviour
         _jumpTimeoutDelta = _jumpTimeout;
         _fallTimeoutDelta = _fallTimeout;
         _dashTimeoutDelta = _dashTimeout;
-        _comboTimeout = _comboTimerDelay;
+        _comboTimeoutDelta = _comboTimerDelay;
 
         _targetDirection = Quaternion.Euler(0.0f, _targetRotation, 0.0f) * Vector3.forward;
     }
@@ -228,14 +230,23 @@ public class PlayerStateMachine : MonoBehaviour
             Debug.Log(_animator.GetCurrentAnimatorStateInfo(0).normalizedTime);
         }*/
 
-        //Debug.Log(_animator.GetAnimatorTransitionInfo(0).normalizedTime);
+        //Debug.Log("Attack input: " + GameInput.Instance.IsAttacking());
+        //Debug.Log("Dash input: " + GameInput.Instance.IsDashing());
 
         HandleGravity();
         GroundedCheck();
         
         HandleTimeouts();
 
+
+        //Vector3 inputDirection = new Vector3(GameInput.Instance.GetMove().x, 0.0f, GameInput.Instance.GetMove().y).normalized;
+        //_targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg + _mainCamera.eulerAngles.y;
+
+        //_targetDirection = Quaternion.Euler(0.0f, _targetRotation, 0.0f) * Vector3.forward;
+
         _currentState.UpdateStates();
+
+
 
         // move the player
         _controller.Move(_targetDirection.normalized * (_speed * Time.deltaTime) + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
@@ -257,7 +268,7 @@ public class PlayerStateMachine : MonoBehaviour
     {
         // set sphere position, with offset
         Vector3 spherePosition = new Vector3(transform.position.x, transform.position.y - _groundedOffset, transform.position.z);
-        _grounded = Physics.CheckSphere(spherePosition, _groundedRadius, GroundLayers, QueryTriggerInteraction.Ignore);
+        _grounded = Physics.CheckSphere(spherePosition, _groundedRadius, _groundLayers, QueryTriggerInteraction.Ignore);
 
         // update animator if using character
         if (_hasAnimator)
@@ -281,10 +292,10 @@ public class PlayerStateMachine : MonoBehaviour
         }
 
         //combat
-        if(_comboRunning && _comboTimeout > 0f){
-            _comboTimeout -= Time.deltaTime;
-            if(_comboTimeout <= 0f){
-                _comboRunning = false;
+        if(_comboTimerRunning && _comboTimeoutDelta > 0f){
+            _comboTimeoutDelta -= Time.deltaTime;
+            if(_comboTimeoutDelta <= 0f){
+                _comboTimerRunning = false;
                 _comboCounter = 0;
             }
         }
@@ -292,27 +303,38 @@ public class PlayerStateMachine : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
-        Color transparentGreen = new Color(0.0f, 1.0f, 0.0f, 0.35f);
-        Color transparentRed = new Color(1.0f, 0.0f, 0.0f, 0.35f);
-
-        if (_grounded) Gizmos.color = transparentGreen;
-        else Gizmos.color = transparentRed;
+        if (_grounded) Gizmos.color = Color.green;
+        else Gizmos.color = Color.red;
 
         // when selected, draw a gizmo in the position of, and matching radius of, the grounded collider
         Gizmos.DrawSphere(new Vector3(transform.position.x, transform.position.y - _groundedOffset, transform.position.z), _groundedRadius);
 
+        Gizmos.color = Color.blue;
         //Draw Target Direction
-        Gizmos.DrawRay(new Vector3(transform.position.x, transform.position.y + 1, transform.position.z), _targetDirection.normalized);
+        Gizmos.DrawRay(new Vector3(transform.position.x, transform.position.y + 0.3f, transform.position.z), _targetDirection.normalized);
+
+
+        if(GameInput.Instance.GetMove() == Vector2.zero){
+            Gizmos.DrawWireSphere(transform.position,_reachDistance);
+        } else {
+            Gizmos.matrix = transform.localToWorldMatrix;
+            float halfDistance = _reachDistance * 0.5f;
+            Gizmos.DrawWireCube(Vector3.zero + Vector3.forward * halfDistance, Vector3.one * halfDistance);
+        }
+
+
+        //Vector3 inputDirection = new Vector3(GameInput.Instance.GetMove().x, 0.0f, GameInput.Instance.GetMove().y).normalized;
+        //Gizmos.DrawRay(new Vector3(transform.position.x, transform.position.y, transform.position.z), new Vector3(GameInput.Instance.GetMove().x, 0.0f, GameInput.Instance.GetMove().y).normalized);
     }
 
     private void OnFootstep(AnimationEvent animationEvent)
     {
         if (animationEvent.animatorClipInfo.weight > 0.5f)
         {
-            if (FootstepAudioClips.Length > 0)
+            if (_footstepAudioClips.Length > 0)
             {
-                var index = Random.Range(0, FootstepAudioClips.Length);
-                AudioSource.PlayClipAtPoint(FootstepAudioClips[index], transform.TransformPoint(_controller.center), _footstepAudioVolume);
+                var index = Random.Range(0, _footstepAudioClips.Length);
+                AudioSource.PlayClipAtPoint(_footstepAudioClips[index], transform.TransformPoint(_controller.center), _footstepAudioVolume);
             }
         }
     }
@@ -321,7 +343,7 @@ public class PlayerStateMachine : MonoBehaviour
     {
         if (animationEvent.animatorClipInfo.weight > 0.5f)
         {
-            AudioSource.PlayClipAtPoint(LandingAudioClip, transform.TransformPoint(_controller.center), _footstepAudioVolume);
+            AudioSource.PlayClipAtPoint(_landingAudioClip, transform.TransformPoint(_controller.center), _footstepAudioVolume);
         }
     }
 }
