@@ -27,6 +27,10 @@ public class PlayerStartAttackState : PlayerBaseState
 
     public override void EnterState()
     {
+        if (GameInput.Instance.GetMove() != Vector2.zero){
+            RotateDirection();
+        }
+
         Ctx.Speed = 0.0f;
 
         //Ctx.Animator.applyRootMotion = true;
@@ -70,22 +74,38 @@ public class PlayerStartAttackState : PlayerBaseState
     void EnemyDetection(){
         Transform nearestEnemy;
         if(GameInput.Instance.GetMove() == Vector2.zero){
-            nearestEnemy = FindNearest();
+            nearestEnemy = FindNearestInSphere();
             if(nearestEnemy != null){
                 MoveToTarget(nearestEnemy);
             }
         } else {
-            if(Physics.SphereCast(Ctx.transform.position, Ctx.FrontCastRadius, Ctx.TargetDirection, out RaycastHit hit, Ctx.ReachDistance - Ctx.FrontCastRadius)){
-                nearestEnemy = hit.collider.transform;
-                if(nearestEnemy.TryGetComponent(out IDamageable damageable)){
-                    MoveToTarget(nearestEnemy);
-                }
+            nearestEnemy = FindNearestInBox();
+            if(nearestEnemy != null){
+                MoveToTarget(nearestEnemy);
             }
         }
     }
 
-    Transform FindNearest(){
+    Transform FindNearestInSphere(){
         Collider[] hits = Physics.OverlapSphere(Ctx.transform.position,Ctx.ReachDistance);
+        List<Transform> enemies = new();
+        //Debug.Log(hits.Length);
+
+        foreach(Collider hit in hits){
+            if(hit.transform.TryGetComponent(out IDamageable damageable)){
+                enemies.Add(hit.transform);
+            }
+        }
+        //Debug.Log(enemies.Count);
+        if(enemies.Count > 0)
+            return UtilityFunctions.GetClosestTransform(Ctx.transform.position,enemies.ToArray());
+        
+        return null;
+    }
+
+    Transform FindNearestInBox(){
+        float halfDistance = Ctx.ReachDistance * 0.5f;
+        Collider[] hits = Physics.OverlapBox(Ctx.transform.position + Ctx.transform.forward * halfDistance, Vector3.one * halfDistance,Ctx.transform.rotation);
         List<Transform> enemies = new();
         //Debug.Log(hits.Length);
 
@@ -105,9 +125,13 @@ public class PlayerStartAttackState : PlayerBaseState
         Vector3 targetOffset = Vector3.MoveTowards(target.position, Ctx.transform.position, .90f);
         targetOffset.y = Ctx.transform.position.y;
 
+        Vector3 directionToTarget = targetOffset - Ctx.transform.position;
+        if(directionToTarget.magnitude > 0.3f){
+            Ctx.transform.DOMove(targetOffset,Ctx.ReachDuration);
+            //Debug.Log(directionToTarget.magnitude);
+        }
+
         Ctx.transform.DOLookAt(target.transform.position, .2f,AxisConstraint.Y);
-        Ctx.transform.DOMove(targetOffset,Ctx.ReachDuration);
-        //Ctx.transform.DOMove(target.position,Ctx.ReachDuration);
     }
 
     void EndAttackEarly(){
@@ -120,5 +144,14 @@ public class PlayerStartAttackState : PlayerBaseState
         }
 
         Ctx.CurrentWeapon.Deactivate();
+    }
+
+    void RotateDirection(){
+        Vector3 inputDirection = new Vector3(GameInput.Instance.GetMove().x, 0.0f, GameInput.Instance.GetMove().y).normalized;
+        Ctx.TargetRotation = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg + Ctx.MainCamera.eulerAngles.y;
+        //Ctx.transform.rotation = Quaternion.Euler(0.0f, Ctx.TargetRotation, 0.0f);
+        Ctx.TargetDirection = Quaternion.Euler(0.0f, Ctx.TargetRotation, 0.0f) * Vector3.forward;
+
+        Ctx.transform.DORotate(new Vector3(0f,Ctx.TargetRotation,0f),.2f);
     }
 }

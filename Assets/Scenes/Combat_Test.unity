@@ -1224,6 +1224,10 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0.021089273
       objectReference: {fileID: 0}
+    - target: {fileID: 1201143739, guid: bf53edb0c2d71d645a4f4190d7d5521e, type: 3}
+      propertyPath: _frontCastRadius
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 1217443364, guid: bf53edb0c2d71d645a4f4190d7d5521e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.000000012340022

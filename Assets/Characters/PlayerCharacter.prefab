@@ -1958,7 +1958,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _moveSpeed: 5.335
-  _rotationSmoothTime: 0.06
+  _rotationSmoothTime: 0.03
   _speedChangeRate: 10
   _landingAudioClip: {fileID: 8300000, guid: ff697d3070687ce4583faa0561a145a2, type: 3}
   _footstepAudioClips:
@@ -1993,7 +1993,6 @@ MonoBehaviour:
   _weaponHolder: {fileID: 483814300}
   _reachDistance: 3
   _reachDuration: 0.5
-  _frontCastRadius: 2
 --- !u!1 &3959978943297151279
 GameObject:
   m_ObjectHideFlags: 0

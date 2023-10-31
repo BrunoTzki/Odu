@@ -44,10 +44,8 @@ public class PlayerMoveState : PlayerBaseState
     public override void UpdateState()
     {
         if(CheckSwitchStates()) return;
-        //Ctx.HandleMove();
+        
         HandleMove();
-
-        //CheckSwitchStates();
     }
 
     void HandleMove(){
@@ -85,11 +83,11 @@ public class PlayerMoveState : PlayerBaseState
         
         //if (GameInput.Instance.GetMove() != Vector2.zero)
         //{
-            Ctx.TargetRotation = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg + Ctx.MainCamera.eulerAngles.y;
-            float rotation = Mathf.SmoothDampAngle(Ctx.transform.eulerAngles.y, Ctx.TargetRotation, ref _rotationVelocity, Ctx.RotationSmoothTime);
+        Ctx.TargetRotation = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg + Ctx.MainCamera.eulerAngles.y;
+        float rotation = Mathf.SmoothDampAngle(Ctx.transform.eulerAngles.y, Ctx.TargetRotation, ref _rotationVelocity, Ctx.RotationSmoothTime);
 
-            // rotate to face input direction relative to camera position
-            Ctx.transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
+        // rotate to face input direction relative to camera position
+        Ctx.transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
         //}
 
 

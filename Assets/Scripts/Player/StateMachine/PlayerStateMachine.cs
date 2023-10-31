@@ -107,10 +107,6 @@ public class PlayerStateMachine : MonoBehaviour
     [SerializeField] private float _reachDuration = .5f;
     public float ReachDuration { get { return _reachDuration; }}
 
-    [Tooltip("Radius of the sphere cast for front detection")]
-    [SerializeField] private float _frontCastRadius = 2f;
-    public float FrontCastRadius { get { return _frontCastRadius; }}
-
     #endregion
 
     #region Movement Variables
@@ -321,16 +317,9 @@ public class PlayerStateMachine : MonoBehaviour
         if(GameInput.Instance.GetMove() == Vector2.zero){
             Gizmos.DrawWireSphere(transform.position,_reachDistance);
         } else {
-            bool isHit = Physics.SphereCast(transform.position, _frontCastRadius, _targetDirection, out RaycastHit hit, _reachDistance - _frontCastRadius);
-
-            if(isHit){
-                Gizmos.color = Color.red;
-                Gizmos.DrawRay(new Vector3(transform.position.x, transform.position.y + 1, transform.position.z),_targetDirection.normalized * hit.distance);
-                Gizmos.DrawWireSphere(transform.position + _targetDirection.normalized * hit.distance, _frontCastRadius);
-            } else {
-                Gizmos.color = Color.green;
-                Gizmos.DrawRay(new Vector3(transform.position.x, transform.position.y + 1, transform.position.z), _targetDirection.normalized * _reachDistance);
-            }
+            Gizmos.matrix = transform.localToWorldMatrix;
+            float halfDistance = _reachDistance * 0.5f;
+            Gizmos.DrawWireCube(Vector3.zero + Vector3.forward * halfDistance, Vector3.one * halfDistance);
         }
 
 
