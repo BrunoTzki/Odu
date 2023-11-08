@@ -5,6 +5,8 @@ using UnityEngine;
 
 public static class UtilityFunctions 
 {
+    public static string PlayerTag = "Player";
+    
     public static Transform GetClosestTransform(Vector3 currentPosition, Transform[] transforms){
         Transform bestTarget = null;
         float closestDistanceSqrd = Mathf.Infinity;
