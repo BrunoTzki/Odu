@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8964507537916074095}
   - component: {fileID: 5460490893155080138}
   - component: {fileID: 7792204549461336832}
+  - component: {fileID: 8817903522253520054}
   m_Layer: 0
   m_Name: pedra plana pequena
   m_TagString: Untagged
@@ -61,7 +62,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 8f23d227dbdf8f54bb86fb55da70edb1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -83,3 +84,16 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &8817903522253520054
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8584851208521171669}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 14.401155, y: 9.363402, z: 10.125273}
+  m_Center: {x: -0.03247738, y: -0.2514305, z: 0.0945971}
