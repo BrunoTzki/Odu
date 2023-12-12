@@ -268,7 +268,9 @@ public class PlayerStateMachine : MonoBehaviour
     {
         // set sphere position, with offset
         Vector3 spherePosition = new Vector3(transform.position.x, transform.position.y - _groundedOffset, transform.position.z);
-        _grounded = Physics.CheckSphere(spherePosition, _groundedRadius, _groundLayers, QueryTriggerInteraction.Ignore);
+        //_grounded = Physics.CheckSphere(spherePosition, _groundedRadius, _groundLayers, QueryTriggerInteraction.Ignore);
+        _grounded = Physics.CheckSphere(spherePosition, _groundedRadius, _groundLayers);
+        //Debug.Log(_grounded);
 
         // update animator if using character
         if (_hasAnimator)

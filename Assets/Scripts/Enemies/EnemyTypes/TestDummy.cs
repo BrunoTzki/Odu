@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class TestDummy : MonoBehaviour, IDamageable
 {
-    public int MaxHealth { get => throw new System.NotImplementedException();}
-    public int CurrentHealth { get => throw new System.NotImplementedException();}
+    public int MaxHealth { get; set; }
+    public int CurrentHealth { get; set; }
 
     public void Damage(int damage)
     {

@@ -9,7 +9,6 @@ public class PlayerIdleState : PlayerBaseState
 
     public override bool CheckSwitchStates()
     {
-        //Debug.Log("Idle Update");
         if(GameInput.Instance.IsAttacking()){
             if(Time.time - Ctx.LastComboEnd > Ctx.ComboWaitTime){
                 SwitchState(Factory.StartAttack());

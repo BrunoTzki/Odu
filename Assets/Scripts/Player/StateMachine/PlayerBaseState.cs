@@ -59,6 +59,10 @@ public abstract class PlayerBaseState
         newSubState.SetSuperState(this);
     }
 
+    protected void SwitchSubState(PlayerBaseState newSubState){
+        _currentSubState.SwitchState(newSubState);
+    }
+
     public string GetActiveStates(){
         return this.ToString() + "\n" + _currentSubState.ToString();
     }

@@ -5,44 +5,47 @@ using UnityEngine.UI;
 
 public class PlayerHeathUI : MonoBehaviour
 {
-    [SerializeField] private Image araFill;
-    [SerializeField] private Image araEfx;
+    [SerializeField] private Image _araFill;
+    [SerializeField] private Image _araEfx;
 
 
-    [SerializeField] private int maxAra;
-    [SerializeField] private int currentAra;
+    [SerializeField] private int _maxAra;
+    private int _currentAra;
+
+    private PlayerStats _playerStats;
 
     private void Start() {
-        currentAra = maxAra;
+        _currentAra = _maxAra;
 
-        PlayerStats playerStats = FindObjectOfType<PlayerStats>();
+        _playerStats = FindObjectOfType<PlayerStats>();
 
-        playerStats.OnDamageTaken += PlayerStats_OnDamageTaken;
+        _playerStats.OnDamageTaken += PlayerStats_OnDamageTaken;
     }
 
     private void PlayerStats_OnDamageTaken(int amount){
         SetHealth(amount);
     }
-    
+
     public void SetHealth(int amount)
     {
-        currentAra = Mathf.Clamp(currentAra + amount, 0, maxAra);
-        
-        Vector3 araFillScale = araFill.rectTransform.localScale;
-        araFillScale.x = (float)currentAra / (float)maxAra;
-        araFill.rectTransform.localScale = araFillScale;
+        Vector3 araFillScale = _araFill.rectTransform.localScale;
+
+        araFillScale.x = (float)_playerStats.CurrentHealth / (float)_playerStats.MaxHealth;
+        araFillScale.x = Mathf.Clamp(araFillScale.x,0,_playerStats.MaxHealth);
+
+        _araFill.rectTransform.localScale = araFillScale;
         StartCoroutine(DecresingAraEfx(araFillScale));
     }
 
     IEnumerator DecresingAraEfx(Vector3 newScale)
     {
         yield return new WaitForSeconds(0.25f);
-        Vector3 araEfxScale = araEfx.rectTransform.localScale;
+        Vector3 araEfxScale = _araEfx.rectTransform.localScale;
 
-        while (araEfx.transform.localScale.x > newScale.x)
+        while (_araEfx.transform.localScale.x > newScale.x)
         {
             araEfxScale.x -= Time.deltaTime * 0.4f;
-            araEfx.rectTransform.localScale = araEfxScale;
+            _araEfx.rectTransform.localScale = araEfxScale;
 
             yield return null;
         }

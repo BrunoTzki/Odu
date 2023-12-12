@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Tools;
 using UnityEngine;
 
 public class EnemyAttackSOBase : ScriptableObject
@@ -24,6 +25,4 @@ public class EnemyAttackSOBase : ScriptableObject
     public virtual void DoPhysicsLogic(){ }
     public virtual void DoAnimationTriggerEventLogic(EnemyScript.AnimationTriggerType triggerType){ }
     public virtual void ResetValues(){ }
-
-
 }

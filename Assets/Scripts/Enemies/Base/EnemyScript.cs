@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Tools;
 using UnityEditorInternal;
 using UnityEngine;
 
@@ -123,4 +124,7 @@ public class EnemyScript : MonoBehaviour, IDamageable, IEnemyMoveable, ITriggerC
 
     #endregion
 
+    public void RunCoroutine(IEnumerator coroutine){
+        StartCoroutine(coroutine);
+    }
 }

@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2527234b04a1f6842b4247e86df35e4e, type: 3}
   m_Name: Attack-Rush Attack
   m_EditorClassIdentifier: 
-  _timeTillExit: 1
-  _rushDistance: 9
+  _timeTillExit: 0.5
+  _rushTimerMax: 0.3
   _rushVelocity: 42
   _rushVelocityCurve:
     serializedVersion: 2
@@ -57,3 +57,5 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  _attackDamage: 20
+  _restTime: 3

@@ -45,7 +45,6 @@ public class PlayerEndAttackState : PlayerBaseState
         Ctx.ComboTimeoutDelta = Ctx.ComboTimerDelay;
 
         if(Ctx.ComboCounter == 0){
-            //Debug.Log("Last Attack");
             Ctx.LastComboEnd = Time.time;
         }
 
@@ -63,6 +62,5 @@ public class PlayerEndAttackState : PlayerBaseState
     public override void UpdateState()
     {
         if(CheckSwitchStates()) return;
-        //CheckSwitchStates();
     }
 }
