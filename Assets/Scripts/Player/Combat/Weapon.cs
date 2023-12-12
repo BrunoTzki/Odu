@@ -21,15 +21,17 @@ public class Weapon : MonoBehaviour
     }
 
     private void OnTriggerEnter(Collider col) {
-        col.TryGetComponent(out IDamageable hit);
-
-        if(hit != null){
+        //Debug.Log("hit");
+        if(col.TryGetComponent(out IDamageable hit)){
+            //Debug.Log("not null");
             if(!_attackedObjects.Contains(hit)){
                 _attackedObjects.Add(hit);
                 hit.Damage(_attackDamage);
+                //Debug.Log(hit);
                 
-
-                TextSpawner.Instance?.SpawnPopupDamage(_attackDamage,col.transform.position);
+                if(TextSpawner.Instance != null){
+                    TextSpawner.Instance.SpawnPopupDamage(_attackDamage,col.transform.position);
+                }
             }
         }
             

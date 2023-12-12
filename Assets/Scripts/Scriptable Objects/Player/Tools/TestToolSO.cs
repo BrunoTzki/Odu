@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Combat/ Tools")]
+[CreateAssetMenu(menuName = "Combat/ Player/ Tools")]
 public class TestToolSO : BaseToolSO
 {
     [SerializeField] private List<AttackSO> _combo;

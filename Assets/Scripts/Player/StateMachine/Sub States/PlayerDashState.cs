@@ -41,10 +41,12 @@ public class PlayerDashState : PlayerBaseState
     public override void ExitState()
     {
         Ctx.DashTimeoutDelta = Ctx.DashTimeout;
-        if (Ctx.HasAnimator)
-        {
+        //if (Ctx.HasAnimator)
+        //{
             Ctx.Animator.SetBool(Ctx.AnimIDDash, false);
-        }
+        //}
+
+        //Debug.Log("dash exit");
     }
 
     public override void InitializeSubState()

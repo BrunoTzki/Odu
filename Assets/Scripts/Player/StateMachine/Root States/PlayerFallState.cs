@@ -34,9 +34,11 @@ public class PlayerFallState : PlayerBaseState
     public override void InitializeSubState()
     {
         if(GameInput.Instance.GetMove() == Vector2.zero){
-            SetSubState(Factory.Idle());
+            //SetSubState(Factory.Idle());
+            SwitchSubState(Factory.Idle());
         } else {
-            SetSubState(Factory.Move());
+            //SetSubState(Factory.Move());
+            SwitchSubState(Factory.Move());
         }
     }
 
