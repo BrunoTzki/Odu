@@ -76,7 +76,6 @@ public class PlayerMoveState : PlayerBaseState
 
         // normalise input direction
         Vector3 inputDirection = new Vector3(GameInput.Instance.GetMove().x, 0.0f, GameInput.Instance.GetMove().y).normalized;
-        //Debug.Log(inputDirection);
 
         // note: Vector2's != operator uses approximation so is not floating point error prone, and is cheaper than magnitude
         // if there is a move input rotate player when the player is moving

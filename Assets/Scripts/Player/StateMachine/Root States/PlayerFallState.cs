@@ -21,6 +21,10 @@ public class PlayerFallState : PlayerBaseState
     public override void EnterState()
     {
         InitializeSubState();
+        if (Ctx.HasAnimator)
+        {
+            Ctx.Animator.SetBool(Ctx.AnimIDFreeFall, true);
+        }
     }
 
     public override void ExitState()
@@ -29,16 +33,17 @@ public class PlayerFallState : PlayerBaseState
         {
             Ctx.Animator.SetBool(Ctx.AnimIDFreeFall, false);
         }
+        ExitSubState();
     }
 
     public override void InitializeSubState()
     {
         if(GameInput.Instance.GetMove() == Vector2.zero){
             //SetSubState(Factory.Idle());
-            SwitchSubState(Factory.Idle());
+            SetSubState(Factory.Idle());
         } else {
             //SetSubState(Factory.Move());
-            SwitchSubState(Factory.Move());
+            SetSubState(Factory.Move());
         }
     }
 
@@ -56,7 +61,7 @@ public class PlayerFallState : PlayerBaseState
         if (Ctx.FallTimeoutDelta >= 0.0f)
         {
             Ctx.FallTimeoutDelta -= Time.deltaTime;
-        }
+        }/*
         else
         {
             // update animator if using character
@@ -64,6 +69,6 @@ public class PlayerFallState : PlayerBaseState
             {
                 Ctx.Animator.SetBool(Ctx.AnimIDFreeFall, true);
             }
-        }
+        }*/
     }
 }

@@ -1782,7 +1782,7 @@ GameObject:
   - component: {fileID: 3854468074509456767}
   - component: {fileID: 1201143731}
   - component: {fileID: 1201143739}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PlayerCharacter
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -1928,6 +1928,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbb3801c00791684893f1fdaf46f8860, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _maxHealth: 100
 --- !u!114 &1201143739
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1965,7 +1966,7 @@ MonoBehaviour:
   _groundedRadius: 0.28
   _groundLayers:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 65
   _dashSpeed: 20
   _dashTime: 0.25
   _dashTimeout: 0.5

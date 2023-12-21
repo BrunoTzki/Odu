@@ -22,7 +22,7 @@ public class PlayerStats : MonoBehaviour
     {
         _currentHealth -= damage;
         if(_currentHealth <= 0){
-            Debug.Log("Dead");
+            Debug.Log("Dead", this);
         }
         OnDamageTaken?.Invoke(damage);
     }

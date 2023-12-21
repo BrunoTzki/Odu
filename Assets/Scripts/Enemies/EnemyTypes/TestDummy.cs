@@ -9,7 +9,7 @@ public class TestDummy : MonoBehaviour, IDamageable
 
     public void Damage(int damage)
     {
-        Debug.Log("Hit: " + damage);
+        Debug.Log("Hit: " + damage, this);
 
         //TextSpawner.Instance.SpawnPopupDamage(damage,transform.position);
     }

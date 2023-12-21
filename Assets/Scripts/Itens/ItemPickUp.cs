@@ -10,14 +10,14 @@ public class ItemPickUp : InteractableDummy
 
     public void PickUp() 
     {
-        Debug.Log("Item Pego");
+        Debug.Log("Item Pego", this);
         bool wasPickedUp = Inventory.instance.Add(item);
         if (wasPickedUp)
         {
             if (Inventory.instance != null) 
             {
                 Destroy(gameObject);
-                Debug.Log("Item Destroyed");
+                Debug.Log("Item Destroyed", this);
             }
 
         }

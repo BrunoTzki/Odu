@@ -57,10 +57,13 @@ public abstract class PlayerBaseState
     protected void SetSubState(PlayerBaseState newSubState){
         _currentSubState = newSubState;
         newSubState.SetSuperState(this);
+
+        _currentSubState.EnterState();
     }
 
-    protected void SwitchSubState(PlayerBaseState newSubState){
-        _currentSubState.SwitchState(newSubState);
+    protected void ExitSubState(){
+        if(_currentSubState != null)
+            _currentSubState.ExitState();
     }
 
     public string GetActiveStates(){

@@ -69,7 +69,7 @@ public class PlayerAttackState : PlayerBaseState
         }
         ExitAttack();
 
-        Debug.Log("Can Attack: " + _canAttack + "; Has Attacked: " + _hasAttacked + "; Combo Ended: " + _comboEnded);
+        Debug.Log("Can Attack: " + _canAttack + "; Has Attacked: " + _hasAttacked + "; Combo Ended: " + _comboEnded,Ctx);
         
 
         HandleComboTimer();
@@ -100,14 +100,14 @@ public class PlayerAttackState : PlayerBaseState
     void ExitAttack(){
         //animation ended
         if(Ctx.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f && Ctx.Animator.GetCurrentAnimatorStateInfo(0).IsTag("Attack")){
-            Debug.Log("Ended");
+            Debug.Log("Ended",Ctx);
             _hasAttacked = false;
             _canAttack = true;
             return;
         }
         //animation ending
         if(Ctx.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= Ctx.AnimEndPct && Ctx.Animator.GetCurrentAnimatorStateInfo(0).IsTag("Attack")){            
-            Debug.Log("Exiting");
+            Debug.Log("Exiting",Ctx);
             //Ctx.Invoke("EndCombo", 1);
             DelayCombo(Ctx.ComboTimerDelay);
             

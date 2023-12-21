@@ -104,7 +104,7 @@ namespace StarterAssets
 
         private void Update()
         {
-            Debug.Log(_verticalVelocity);
+            Debug.Log(_verticalVelocity, this);
             GroundedCheck();
             JumpAndGravity();
             Move();

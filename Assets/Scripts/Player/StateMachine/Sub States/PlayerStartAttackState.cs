@@ -11,10 +11,9 @@ public class PlayerStartAttackState : PlayerBaseState
 
     public override bool CheckSwitchStates()
     {
-        //Debug.Log("Start Attack Update");
         //animation ending
+        //Se a animação atual estiver acabado e for da tag "Attack", e se não estiver em transição
         if(Ctx.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= Ctx.AnimEndPct && Ctx.Animator.GetCurrentAnimatorStateInfo(0).IsTag("Attack") && Ctx.Animator.GetAnimatorTransitionInfo(0).normalizedTime==0){            
-            //Debug.Log("Attack to End attack");
             SwitchState(Factory.EndAttack());
             return true;
         } if(GameInput.Instance.IsDashing() && Ctx.DashTimeoutDelta <= 0.0f && Ctx.Grounded){
@@ -57,7 +56,6 @@ public class PlayerStartAttackState : PlayerBaseState
     }
 
     void Attack(){
-        //Debug.Log("Attack");
         Ctx.Animator.runtimeAnimatorController = Ctx.CurrentTool.Combo[Ctx.ComboCounter].AnimatorOV;
         Ctx.Animator.SetTrigger(Ctx.AnimIDAttack);
         //Ctx.Animator.SetBool(Ctx.AnimIDAttack,true);
@@ -89,14 +87,12 @@ public class PlayerStartAttackState : PlayerBaseState
     Transform FindNearestInSphere(){
         Collider[] hits = Physics.OverlapSphere(Ctx.transform.position,Ctx.ReachDistance);
         List<Transform> enemies = new();
-        //Debug.Log(hits.Length);
 
         foreach(Collider hit in hits){
             if(hit.transform.TryGetComponent(out IDamageable damageable)){
                 enemies.Add(hit.transform);
             }
         }
-        //Debug.Log(enemies.Count);
         if(enemies.Count > 0)
             return UtilityFunctions.GetClosestTransform(Ctx.transform.position,enemies.ToArray());
         
@@ -107,14 +103,12 @@ public class PlayerStartAttackState : PlayerBaseState
         float halfDistance = Ctx.ReachDistance * 0.5f;
         Collider[] hits = Physics.OverlapBox(Ctx.transform.position + Ctx.transform.forward * halfDistance, Vector3.one * halfDistance,Ctx.transform.rotation);
         List<Transform> enemies = new();
-        //Debug.Log(hits.Length);
 
         foreach(Collider hit in hits){
             if(hit.transform.TryGetComponent(out IDamageable damageable)){
                 enemies.Add(hit.transform);
             }
         }
-        //Debug.Log(enemies.Count);
         if(enemies.Count > 0)
             return UtilityFunctions.GetClosestTransform(Ctx.transform.position,enemies.ToArray());
         
@@ -128,7 +122,6 @@ public class PlayerStartAttackState : PlayerBaseState
         Vector3 directionToTarget = targetOffset - Ctx.transform.position;
         if(directionToTarget.magnitude > 0.3f){
             Ctx.transform.DOMove(targetOffset,Ctx.ReachDuration);
-            //Debug.Log(directionToTarget.magnitude);
         }
 
         Ctx.transform.DOLookAt(target.transform.position, .2f,AxisConstraint.Y);
@@ -139,7 +132,6 @@ public class PlayerStartAttackState : PlayerBaseState
         Ctx.ComboTimeoutDelta = Ctx.ComboTimerDelay;
 
         if(Ctx.ComboCounter == 0){
-            //Debug.Log("Last Attack");
             Ctx.LastComboEnd = Time.time;
         }
 

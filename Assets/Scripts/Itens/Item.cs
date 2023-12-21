@@ -27,6 +27,6 @@ public class Item : ScriptableObject
         //use item
         //something might happen
         //
-        Debug.Log("Using " + itemName);
+        Debug.Log("Using " + itemName, this);
     }
 }

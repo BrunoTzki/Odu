@@ -9,7 +9,6 @@ public class PlayerEndAttackState : PlayerBaseState
 
     public override bool CheckSwitchStates()
     {
-        //Debug.Log("End Attack Update");
         if (GameInput.Instance.IsAttacking()){
             if(Ctx.ComboCounter != 0){
                 SwitchState(Factory.StartAttack());
@@ -27,7 +26,6 @@ public class PlayerEndAttackState : PlayerBaseState
             return true;
 
         } if(Ctx.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.99f){ //animation ended
-            //Debug.Log("End Attack to Idle");
             SwitchState(Factory.Idle());
             return true;
         }

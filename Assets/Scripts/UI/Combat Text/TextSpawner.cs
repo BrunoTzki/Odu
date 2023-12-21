@@ -21,7 +21,6 @@ public class TextSpawner : MonoBehaviour
     }
 
     public void SpawnPopupDamage(int damage, Vector3 startPosition){
-        //Debug.Log("Spawn text");
         DamagePopup popup;
         Vector3 screenPos = _cam.WorldToScreenPoint(startPosition);
         popup=Instantiate(_textPopUp,screenPos,Quaternion.Euler(0,0,0),transform).GetComponent<DamagePopup>();

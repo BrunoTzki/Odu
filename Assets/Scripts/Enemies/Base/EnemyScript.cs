@@ -9,11 +9,13 @@ public class EnemyScript : MonoBehaviour, IDamageable, IEnemyMoveable, ITriggerC
 {
     public event Action<int,int> OnDamaged;
     [SerializeField] private int _maxHealth = 200;
+    [SerializeField] private float _rotateDuration = .2f;
     private int _currentHealth;
 
     private Rigidbody _rb;
 
     public int MaxHealth { get => _maxHealth; }
+    public float RotateDuration { get => _rotateDuration; }
     public int CurrentHealth { get => _currentHealth; }
     public Rigidbody RB { get => _rb; }
 

@@ -45,8 +45,6 @@ public class PlayerDashState : PlayerBaseState
         //{
             Ctx.Animator.SetBool(Ctx.AnimIDDash, false);
         //}
-
-        //Debug.Log("dash exit");
     }
 
     public override void InitializeSubState()

@@ -11,10 +11,10 @@ public class PlayerGroundedState : PlayerBaseState
 
     public override bool CheckSwitchStates()
     {
-        if(GameInput.Instance.IsJumping() && Ctx.JumpTimeoutDelta <= 0.0f){
+        /*if(GameInput.Instance.IsJumping() && Ctx.JumpTimeoutDelta <= 0.0f){
             SwitchState(Factory.Jump());
             return true;
-        } else if (!Ctx.Grounded){
+        } else */if (!Ctx.Grounded){
             SwitchState(Factory.Fall());
             return true;
         }
@@ -38,6 +38,7 @@ public class PlayerGroundedState : PlayerBaseState
 
     public override void ExitState()
     {
+        ExitSubState();
     }
 
     public override void InitializeSubState()

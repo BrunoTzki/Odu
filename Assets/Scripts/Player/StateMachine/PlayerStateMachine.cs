@@ -224,14 +224,14 @@ public class PlayerStateMachine : MonoBehaviour
     }
 
     private void Update() {            
-        //Debug.Log(_currentState.GetActiveStates());
+        //Debug.Log(_currentState.GetActiveStates(), this);
         /*
         if(_animator.GetCurrentAnimatorStateInfo(0).IsTag("Attack")){
-            Debug.Log(_animator.GetCurrentAnimatorStateInfo(0).normalizedTime);
+            Debug.Log(_animator.GetCurrentAnimatorStateInfo(0).normalizedTime, this);
         }*/
 
-        //Debug.Log("Attack input: " + GameInput.Instance.IsAttacking());
-        //Debug.Log("Dash input: " + GameInput.Instance.IsDashing());
+        //Debug.Log("Attack input: " + GameInput.Instance.IsAttacking(), this);
+        //Debug.Log("Dash input: " + GameInput.Instance.IsDashing(), this);
 
         HandleGravity();
         GroundedCheck();
@@ -268,9 +268,8 @@ public class PlayerStateMachine : MonoBehaviour
     {
         // set sphere position, with offset
         Vector3 spherePosition = new Vector3(transform.position.x, transform.position.y - _groundedOffset, transform.position.z);
-        //_grounded = Physics.CheckSphere(spherePosition, _groundedRadius, _groundLayers, QueryTriggerInteraction.Ignore);
-        _grounded = Physics.CheckSphere(spherePosition, _groundedRadius, _groundLayers);
-        //Debug.Log(_grounded);
+        _grounded = Physics.CheckSphere(spherePosition, _groundedRadius, _groundLayers, QueryTriggerInteraction.Ignore);
+        //Debug.Log(_grounded, this);
 
         // update animator if using character
         if (_hasAnimator)

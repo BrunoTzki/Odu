@@ -16,9 +16,9 @@ public class AttackTrigger : MonoBehaviour
     }
 
     private void OnTriggerEnter(Collider col) {
-        //Debug.Log("collision");
+        //Debug.Log("collision", this);
         if(col.TryGetComponent(out PlayerStats hit)){
-            //Debug.Log("Hit");
+            //Debug.Log("Hit", this);
             hit.TakeDamage(_attackDamage);
         }
         
